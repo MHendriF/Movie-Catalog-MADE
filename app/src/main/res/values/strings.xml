@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Movie Catalog MADE</string>
+    <string name="status">Status</string>
+    <string name="judul">Judul</string>
+    <string name="rilis">Tanggal Rilis</string>
+    <string name="deskripsi">Description</string>
+    <string name="sinopsis">Sinopsis</string>
+    <string name="durasi">Durasi</string>
+    <string name="skor">Skor</string>
+</resources>
