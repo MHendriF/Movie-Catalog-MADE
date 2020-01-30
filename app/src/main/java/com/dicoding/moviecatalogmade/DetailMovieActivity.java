@@ -2,9 +2,7 @@ package com.dicoding.moviecatalogmade;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +15,7 @@ public class DetailMovieActivity extends AppCompatActivity {
 
     public static final String EXTRA_MOVIE = "extra_movie";
     private String title = "Detail Movie";
+    private String customData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,8 @@ public class DetailMovieActivity extends AppCompatActivity {
             txtDeskripsi.setText(selectedMovie.getDescription());
 
             TextView txtSkor = findViewById(R.id.tv_movie_score_detail);
-            txtSkor.setText(String.valueOf(selectedMovie.getScore())+"%");
+            customData = selectedMovie.getScore()+"%";
+            txtSkor.setText(customData);
         }
 
     }

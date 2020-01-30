@@ -15,7 +15,11 @@ public class MovieData {
             "Creed II",
             "Once Upon a Deadpool",
             "How to Train Your Dragon: The Hidden World",
-            "Glass"
+            "Glass",
+            "Dragon Ball Super: Broly",
+            "Venom",
+            "Preman Pensiun",
+            "Mary Poppins Returns"
     };
 
     private static String[] movieDurasi = {
@@ -28,7 +32,11 @@ public class MovieData {
             "2h 10m",
             "1h 57m",
             "1h 44m",
-            "2h 9m"
+            "2h 9m",
+            "1h 41m",
+            "1h 52m",
+            "1h 24",
+            "2h 11m"
     };
 
     private static String[] movieDeskripsi = {
@@ -41,7 +49,11 @@ public class MovieData {
             "Between personal obligations and training for his next big fight against an opponent with ties to his family's past, Adonis Creed is up against the challenge of his life.",
             "A kidnapped Fred Savage is forced to endure Deadpool's PG-13 rendition of Deadpool 2 as a Princess Bride-esque story that's full of magic, wonder & zero F's.",
             "As Hiccup fulfills his dream of creating a peaceful dragon utopia, Toothless’ discovery of an untamed, elusive mate draws the Night Fury away. When danger mounts at home and Hiccup’s reign as village chief is tested, both dragon and rider must make impossible decisions to save their kind. ",
-            "In a series of escalating encounters, former security guard David Dunn uses his supernatural abilities to track Kevin Wendell Crumb, a disturbed man who has twenty-four personalities. Meanwhile, the shadowy presence of Elijah Price emerges as an orchestrator who holds secrets critical to both men."
+            "In a series of escalating encounters, former security guard David Dunn uses his supernatural abilities to track Kevin Wendell Crumb, a disturbed man who has twenty-four personalities. Meanwhile, the shadowy presence of Elijah Price emerges as an orchestrator who holds secrets critical to both men.",
+            "Earth is peaceful following the Tournament of Power. Realizing that the universes still hold many more strong people yet to see, Goku spends all his days training to reach even greater heights. Then one day, Goku and Vegeta are faced by a Saiyan called 'Broly' who they've never seen before. The Saiyans were supposed to have been almost completely wiped out in the destruction of Planet Vegeta, so what's this one doing on Earth? This encounter between the three Saiyans who have followed completely different destinies turns into a stupendous battle, with even Frieza (back from Hell) getting caught up in the mix.",
+            "Investigative journalist Eddie Brock attempts a comeback following a scandal, but accidentally becomes the host of Venom, a violent, super powerful alien symbiote. Soon, he must rely on his newfound powers to protect the world from a shadowy organization looking for a symbiote of their own.",
+            "After three years, the business of Muslihat (Epi Kusnandar), who has retired as a thug, has a problem. Sales decline. Muslihat also faces new problems when Safira (Safira Maharani), her only daughter, grows up in adolescence and begins to be visited by boys. A bigger problem: frictions between his former subordinates.",
+            "In Depression-era London, a now-grown Jane and Michael Banks, along with Michael's three children, are visited by the enigmatic Mary Poppins following a personal loss. Through her unique magical skills, and with the aid of her friend Jack, she helps the family rediscover the joy and wonder missing in their lives."
     };
 
     private static int[] movieScore = {
@@ -54,7 +66,11 @@ public class MovieData {
             68,
             69,
             77,
-            65
+            65,
+            74,
+            66,
+            65,
+            66
     };
 
     private static String[] movieRilis = {
@@ -67,7 +83,11 @@ public class MovieData {
             "November 21, 2018",
             "December 11, 2018",
             "January 3, 2019",
-            "January 16, 2019"
+            "January 16, 2019",
+            "December 14, 2018 ",
+            "September 28, 2018",
+            "January 17, 2019",
+            "December 13, 2018"
     };
 
     private static int[] moviePoster = {
@@ -80,7 +100,11 @@ public class MovieData {
             R.drawable.poster_creed,
             R.drawable.poster_deadpool,
             R.drawable.poster_dragon,
-            R.drawable.poster_glass
+            R.drawable.poster_glass,
+            R.drawable.poster_dragonball,
+            R.drawable.poster_venom,
+            R.drawable.poster_preman,
+            R.drawable.poster_marrypopins
     };
 
     public static ArrayList<Movie> getListData() {
