@@ -1,6 +1,6 @@
-# Menjadi Android Developer Expert
+# Movie Catalog
 
-Aplikasi ini dibuat untuk memenuhi syarat kelulusan pada kelas Dicoding (Menjadi Android Developer Expert).
+Aplikasi ini dibuat untuk memenuhi syarat kelulusan pada kelas Dicoding [Menjadi Android Developer Expert](https://www.dicoding.com/academies/14)
 
 ### Author
-_Hendri Febriansyah_
+_M Hendri Febriansyah_
