@@ -134,6 +134,7 @@ public class MovieData {
             movie.setScore(movieScore[position]);
             movie.setPoster(moviePoster[position]);
             movie.setDurasi(movieDurasi[position]);
+            movie.setLanguage(Language[position]);
             list.add(movie);
         }
         return list;

@@ -75,7 +75,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.CardViewVi
             TvShow tvShow = getTvShows().get(position);
 
             Intent intent = new Intent(context, DetailTvShowActivity.class);
-            intent.putExtra(DetailTvShowActivity.EXTRA_MOVIE, tvShow);
+            intent.putExtra(DetailTvShowActivity.EXTRA_TV_SHOW, tvShow);
             context.startActivity(intent);
         }
     }

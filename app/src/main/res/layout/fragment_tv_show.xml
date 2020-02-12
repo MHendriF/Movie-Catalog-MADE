@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".fragment.TvShowFragment">
 
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:padding="30dp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:text="Fragment TV Show">-->
+<!--    </TextView>-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tv_show"
         android:layout_width="match_parent"

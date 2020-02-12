@@ -23,30 +23,33 @@ public class DetailMovieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_movie);
         setActionBarTitle(title);
 
-        Movie selectedMovie = getIntent().getParcelableExtra(EXTRA_MOVIE);
-        if (selectedMovie != null){
+        Movie item = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        if (item != null){
 
             ImageView imgPoster = findViewById(R.id.iv_movie_poster);
             Glide.with(this)
-                    .load(selectedMovie.getPoster())
+                    .load(item.getPoster())
                     .apply(new RequestOptions().override(600, 900))
                     .into(imgPoster);
 
             TextView txtJudul = findViewById(R.id.tv_movie_title);
-            txtJudul.setText(selectedMovie.getJudul());
+            txtJudul.setText(item.getJudul());
 
             TextView txtDurasi = findViewById(R.id.tv_movie_runtime);
-            txtDurasi.setText(selectedMovie.getDurasi());
+            txtDurasi.setText(item.getDurasi());
 
             TextView txtRilis = findViewById(R.id.tv_movie_released);
-            txtRilis.setText(selectedMovie.getTayang());
+            txtRilis.setText(item.getTayang());
 
             TextView txtDeskripsi = findViewById(R.id.tv_movie_description);
-            txtDeskripsi.setText(selectedMovie.getDescription());
+            txtDeskripsi.setText(item.getDescription());
 
             TextView txtSkor = findViewById(R.id.tv_movie_score);
-            customData = selectedMovie.getScore()+"%";
+            customData = item.getScore()+"%";
             txtSkor.setText(customData);
+
+            TextView tvLanguage = findViewById(R.id.tv_movie_language);
+            tvLanguage.setText(item.getLanguage());
         }
 
     }

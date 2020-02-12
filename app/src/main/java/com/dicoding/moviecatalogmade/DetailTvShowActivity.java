@@ -12,9 +12,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.moviecatalogmade.model.Movie;
 import com.dicoding.moviecatalogmade.model.TvShow;
 
+import org.w3c.dom.Text;
+
 public class DetailTvShowActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MOVIE = "extra_movie";
+    public static final String EXTRA_TV_SHOW = "extra_tv_show";
     private String title = "Detail Tv Show";
     private String customData;
     private String TAG = "Trace DetailTvShow";
@@ -25,7 +27,7 @@ public class DetailTvShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_tv_show);
         setActionBarTitle(title);
 
-        TvShow item = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        TvShow item = getIntent().getParcelableExtra(EXTRA_TV_SHOW);
         Log.d(TAG, "onCreate: "+item);
         if (item != null){
             ImageView imgPoster = findViewById(R.id.iv_movie_poster);
@@ -34,21 +36,24 @@ public class DetailTvShowActivity extends AppCompatActivity {
                     .apply(new RequestOptions().override(600, 900))
                     .into(imgPoster);
 
-            TextView txtJudul = findViewById(R.id.tv_movie_title);
-            txtJudul.setText(item.getTitle());
+            TextView tvTitle = findViewById(R.id.tv_movie_title);
+            tvTitle.setText(item.getTitle());
 
-            TextView txtDurasi = findViewById(R.id.tv_movie_runtime);
-            txtDurasi.setText(item.getRuntime());
+            TextView tvRuntime = findViewById(R.id.tv_movie_runtime);
+            tvRuntime.setText(item.getRuntime());
 
-            TextView txtRilis = findViewById(R.id.tv_movie_released);
-            txtRilis.setText(item.getRelease_date());
+            TextView tvReleased = findViewById(R.id.tv_movie_released);
+            tvReleased.setText(item.getRelease_date());
 
-            TextView txtDeskripsi = findViewById(R.id.tv_movie_description);
-            txtDeskripsi.setText(item.getOverview());
+            TextView tvOverview = findViewById(R.id.tv_movie_description);
+            tvOverview.setText(item.getOverview());
 
-            TextView txtSkor = findViewById(R.id.tv_movie_score);
+            TextView tvScore = findViewById(R.id.tv_movie_score);
             customData = item.getScore()+"%";
-            txtSkor.setText(customData);
+            tvScore.setText(customData);
+
+            TextView tvLanguage = findViewById(R.id.tv_movie_language);
+            tvLanguage.setText(item.getLanguage());
         }
     }
 

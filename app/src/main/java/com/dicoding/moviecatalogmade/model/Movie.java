@@ -30,7 +30,6 @@ public class Movie implements Parcelable {
         this.durasi = durasi;
     }
 
-
     public Movie() {
 
     }

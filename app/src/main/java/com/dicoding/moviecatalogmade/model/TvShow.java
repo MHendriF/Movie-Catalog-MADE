@@ -92,7 +92,6 @@ public class TvShow implements Parcelable {
         this.runtime = runtime;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
