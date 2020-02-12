@@ -7,4 +7,19 @@
     <string name="sinopsis">Sinopsis</string>
     <string name="durasi">Durasi</string>
     <string name="skor">Skor</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_movies">Movies</string>
+    <string name="title_tv_show">Tv Show</string>
+    <string name="change_language">Change Language</string>
+    <string name="star_icon">Icon</string>
+    <string name="timer_icon">Icon</string>
+    <string name="icon_language">Icon</string>
+    <string name="movie_score">50%</string>
+    <string name="movie_runtime">1h 30m</string>
+    <string name="languange">Indonesia</string>
+    <string name="line">line</string>
+    <string name="overview">Overview</string>
+    <string name="date_example">2 Februari 2019</string>
 </resources>

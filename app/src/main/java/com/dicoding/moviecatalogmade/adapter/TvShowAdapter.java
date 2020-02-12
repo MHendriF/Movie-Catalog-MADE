@@ -2,7 +2,6 @@ package com.dicoding.moviecatalogmade.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,50 +13,48 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.dicoding.moviecatalogmade.DetailMovieActivity;
+import com.dicoding.moviecatalogmade.DetailTvShowActivity;
 import com.dicoding.moviecatalogmade.R;
-import com.dicoding.moviecatalogmade.model.Movie;
+import com.dicoding.moviecatalogmade.model.TvShow;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewViewHolder> {
+public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.CardViewViewHolder> {
 
     private Context context;
-    private ArrayList<Movie> movies;
+    private ArrayList<TvShow> tvShows;
 
-    public MovieAdapter(Context context, ArrayList<Movie> movies){
+    public TvShowAdapter(Context context, ArrayList<TvShow> tvShows){
         this.context = context;
-        this.movies = movies;
+        this.tvShows = tvShows;
     }
 
     @NonNull
     @Override
-    public CardViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
+    public TvShowAdapter.CardViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tv_show, parent, false);
         return new CardViewViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardViewViewHolder holder, int position) {
-        Movie movie = movies.get(position);
+    public void onBindViewHolder(@NonNull TvShowAdapter.CardViewViewHolder holder, int position) {
+        TvShow tvShow = tvShows.get(position);
 
-        holder.txtName.setText(movie.getJudul());
-        holder.txtRilis.setText(movie.getTayang());
-        holder.txtDescription.setText(movie.getDescription());
+        holder.txtName.setText(tvShow.getTitle());
+        holder.txtRilis.setText(tvShow.getRelease_date());
+        holder.txtDescription.setText(tvShow.getOverview());
         Glide.with(holder.itemView.getContext())
-                .load(movie.getPoster())
+                .load(tvShow.getPoster())
                 .apply(new RequestOptions().override(200, 300))
                 .into(holder.imgPoster);
-
     }
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return tvShows.size();
     }
 
-    public class CardViewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+    public class CardViewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView txtName;
         TextView txtRilis;
         TextView txtDescription;
@@ -75,15 +72,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewView
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            Movie movie = getMovies().get(position);
+            TvShow tvShow = getTvShows().get(position);
 
-            Intent intent = new Intent(context, DetailMovieActivity.class);
-            intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movie);
+            Intent intent = new Intent(context, DetailTvShowActivity.class);
+            intent.putExtra(DetailTvShowActivity.EXTRA_MOVIE, tvShow);
             context.startActivity(intent);
         }
     }
 
-    public ArrayList<Movie> getMovies() {
-        return movies;
+    public ArrayList<TvShow> getTvShows() {
+        return tvShows;
     }
 }

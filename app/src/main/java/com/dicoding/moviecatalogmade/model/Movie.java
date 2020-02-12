@@ -12,6 +12,16 @@ public class Movie implements Parcelable {
     private int poster;
     private String durasi;
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    private String language;
+
     public String getDurasi() {
         return durasi;
     }
@@ -76,6 +86,7 @@ public class Movie implements Parcelable {
         score = in.readInt();
         poster = in.readInt();
         durasi = in.readString();
+        language = in.readString();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -103,5 +114,6 @@ public class Movie implements Parcelable {
         dest.writeInt(score);
         dest.writeInt(poster);
         dest.writeString(durasi);
+        dest.writeString(language);
     }
 }
