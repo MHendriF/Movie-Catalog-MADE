@@ -53,97 +53,23 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_movie_poster"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/iv_stars"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="@string/star_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.242"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_background"
-        app:layout_constraintVertical_bias="0.093"
-        app:srcCompat="@drawable/ic_star_border_24dp" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="360dp" />
 
-    <ImageView
-        android:id="@+id/iv_runtime"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/include_detail_info"
+        layout="@layout/layout_detail_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="@string/timer_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="18dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
-        app:layout_constraintStart_toEndOf="@+id/iv_stars"
-        app:layout_constraintTop_toBottomOf="@+id/img_background"
-        app:layout_constraintVertical_bias="0.068"
-        app:srcCompat="@drawable/ic_access_time_24dp" />
-
-    <ImageView
-        android:id="@+id/iv_language"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="@string/icon_language"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.442"
-        app:layout_constraintStart_toEndOf="@+id/iv_runtime"
-        app:layout_constraintTop_toBottomOf="@+id/img_background"
-        app:layout_constraintVertical_bias="0.068"
-        app:srcCompat="@drawable/ic_language_24dp" />
-
-    <TextView
-        android:id="@+id/tv_movie_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/movie_score"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_runtime"
-        app:layout_constraintEnd_toEndOf="@+id/iv_stars"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/iv_stars"
-        app:layout_constraintTop_toBottomOf="@+id/iv_stars"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_movie_runtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/movie_runtime"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/iv_runtime"
-        app:layout_constraintHorizontal_bias="0.304"
-        app:layout_constraintStart_toStartOf="@+id/iv_runtime"
-        app:layout_constraintTop_toBottomOf="@+id/iv_runtime"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_movie_language"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/languange"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/iv_language"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="@+id/iv_language"
-        app:layout_constraintTop_toBottomOf="@+id/iv_language"
-        app:layout_constraintVertical_bias="0.002" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline" />
 
     <TextView
         android:id="@+id/tv_overview"
@@ -217,4 +143,5 @@
             app:layout_constraintVertical_bias="0.0" />
 
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
