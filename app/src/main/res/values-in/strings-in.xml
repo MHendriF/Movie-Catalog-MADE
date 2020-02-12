@@ -2,21 +2,19 @@
 <resources>
     <string name="app_name">Movie Catalog MADE</string>
     <string name="status">Status</string>
-    <string name="judul">Judul</string>
-    <string name="rilis">Tanggal Rilis</string>
-    <string name="deskripsi">Description</string>
-    <string name="sinopsis">Sinopsis</string>
-    <string name="durasi">Durasi</string>
-    <string name="skor">Skor</string>
+    <string name="title">Judul</string>
+    <string name="released_date">Tanggal Rilis</string>
+    <string name="description">Deskripsi</string>
+    <string name="runtime">Durasi</string>
+    <string name="score">Skor</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_movies">Movies</string>
     <string name="title_tv_show">Tv Show</string>
     <string name="change_language">Ubah Pengaturan Bahasa</string>
-    <string name="star_icon">Icon</string>
-    <string name="timer_icon">Icon</string>
-    <string name="icon_language">Icon</string>
+    <string name="star_icon">Ikon</string>
+    <string name="timer_icon">Ikon</string>
+    <string name="icon_language">Ikon</string>
     <string name="movie_score">50%</string>
     <string name="movie_runtime">1h 30m</string>
     <string name="languange">Indonesia</string>

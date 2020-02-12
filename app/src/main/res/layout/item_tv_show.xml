@@ -44,7 +44,7 @@
                     android:id="@+id/tv_movie_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/judul"
+                    android:text="@string/title"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimaryDark"/>
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_small"
-                    android:text="@string/rilis"
+                    android:text="@string/released_date"
                     android:textColor="@color/cyan_800_overlay"
                     android:layout_marginBottom="8dp"/>
 
@@ -66,7 +66,7 @@
                     android:maxLines="4"
                     android:ellipsize="end"
                     android:textColor="@color/cyan_800_overlay"
-                    android:text="@string/sinopsis"/>
+                    android:text="@string/overview"/>
 
             </LinearLayout>
         </LinearLayout>
