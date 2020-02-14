@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="120dp">
 
@@ -17,7 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline"
         app:layout_constraintVertical_bias="0.093"
         app:srcCompat="@drawable/ic_star_border_24dp" />
 
@@ -34,7 +33,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toEndOf="@+id/iv_stars"
-        app:layout_constraintTop_toBottomOf="@+id/img_background"
         app:layout_constraintVertical_bias="0.068"
         app:srcCompat="@drawable/ic_access_time_24dp" />
 
@@ -51,7 +49,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toEndOf="@+id/iv_runtime"
-        app:layout_constraintTop_toBottomOf="@+id/img_background"
         app:layout_constraintVertical_bias="0.068"
         app:srcCompat="@drawable/ic_language_24dp" />
 
@@ -96,6 +93,5 @@
         app:layout_constraintStart_toStartOf="@+id/iv_language"
         app:layout_constraintTop_toBottomOf="@+id/iv_language"
         app:layout_constraintVertical_bias="0.002" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

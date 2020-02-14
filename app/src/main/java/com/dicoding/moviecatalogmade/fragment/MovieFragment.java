@@ -26,12 +26,11 @@ public class MovieFragment extends Fragment {
 
     private RecyclerView rvMovie;
     private ArrayList<Movie> movies = new ArrayList<>();
-    MovieAdapter movieAdapter;
+    private MovieAdapter movieAdapter;
 
     public MovieFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
