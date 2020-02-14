@@ -5,88 +5,15 @@ import android.os.Parcelable;
 
 public class Movie implements Parcelable {
 
-    private String judul;
-    private String tayang;
-    private String description;
+    private String title;
+    private String overview;
     private int score;
     private int poster;
-    private String durasi;
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
+    private String runtime;
+    private String release_date;
     private String language;
 
-    public String getDurasi() {
-        return durasi;
-    }
-
-    public void setDurasi(String durasi) {
-        this.durasi = durasi;
-    }
-
-    public Movie() {
-
-    }
-
-    public int getPoster() {
-        return poster;
-    }
-
-    public void setPoster(int poster) {
-        this.poster = poster;
-    }
-
-    public String getJudul() {
-        return judul;
-    }
-
-    public void setJudul(String judul) {
-        this.judul = judul;
-    }
-
-    public String getTayang() {
-        return tayang;
-    }
-
-    public void setTayang(String tayang) {
-        this.tayang = tayang;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public static Creator<Movie> getCREATOR() {
-        return CREATOR;
-    }
-
-    protected Movie(Parcel in) {
-        judul = in.readString();
-        tayang = in.readString();
-        description = in.readString();
-        score = in.readInt();
-        poster = in.readInt();
-        durasi = in.readString();
-        language = in.readString();
-    }
+    public Movie(){}
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
@@ -100,6 +27,63 @@ public class Movie implements Parcelable {
         }
     };
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getPoster() {
+        return poster;
+    }
+
+    public void setPoster(int poster) {
+        this.poster = poster;
+    }
+
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
+    }
+
+    public String getRelease_date() {
+        return release_date;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -107,12 +91,22 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(judul);
-        dest.writeString(tayang);
-        dest.writeString(description);
+        dest.writeString(title);
+        dest.writeString(release_date);
+        dest.writeString(overview);
         dest.writeInt(score);
         dest.writeInt(poster);
-        dest.writeString(durasi);
+        dest.writeString(runtime);
         dest.writeString(language);
+    }
+
+    protected Movie(Parcel in) {
+        title = in.readString();
+        release_date = in.readString();
+        overview = in.readString();
+        score = in.readInt();
+        poster = in.readInt();
+        runtime = in.readString();
+        language = in.readString();
     }
 }

@@ -14,16 +14,6 @@ public class TvShow implements Parcelable {
 
     public TvShow(){}
 
-    protected TvShow(Parcel in) {
-        title = in.readString();
-        release_date = in.readString();
-        overview = in.readString();
-        score = in.readInt();
-        poster = in.readString();
-        runtime = in.readString();
-        language = in.readString();
-    }
-
     public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {
         @Override
         public TvShow createFromParcel(Parcel in) {
@@ -106,5 +96,15 @@ public class TvShow implements Parcelable {
         dest.writeString(poster);
         dest.writeString(runtime);
         dest.writeString(language);
+    }
+
+    protected TvShow(Parcel in) {
+        title = in.readString();
+        release_date = in.readString();
+        overview = in.readString();
+        score = in.readInt();
+        poster = in.readString();
+        runtime = in.readString();
+        language = in.readString();
     }
 }

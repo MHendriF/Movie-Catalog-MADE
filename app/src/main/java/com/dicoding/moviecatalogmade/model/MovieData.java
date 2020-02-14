@@ -128,12 +128,12 @@ public class MovieData {
         ArrayList<Movie> list = new ArrayList<>();
         for (int position = 0; position < movieJudul.length; position++){
             Movie movie = new Movie();
-            movie.setJudul(movieJudul[position]);
-            movie.setTayang(movieRilis[position]);
-            movie.setDescription(movieDeskripsi[position]);
+            movie.setTitle(movieJudul[position]);
+            movie.setRelease_date(movieRilis[position]);
+            movie.setOverview(movieDeskripsi[position]);
             movie.setScore(movieScore[position]);
             movie.setPoster(moviePoster[position]);
-            movie.setDurasi(movieDurasi[position]);
+            movie.setRuntime(movieDurasi[position]);
             movie.setLanguage(Language[position]);
             list.add(movie);
         }

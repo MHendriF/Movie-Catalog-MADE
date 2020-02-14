@@ -17,18 +17,18 @@ import org.w3c.dom.Text;
 public class DetailTvShowActivity extends AppCompatActivity {
 
     public static final String EXTRA_TV_SHOW = "extra_tv_show";
-    private String title = "Detail Tv Show";
+    private String customTitle;
     private String customData;
-    private String TAG = "Trace DetailTvShow";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_tv_show);
-        setActionBarTitle(title);
+        customTitle = getString(R.string.title_tv_show);
+        setActionBarTitle("Detail "+customTitle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TvShow item = getIntent().getParcelableExtra(EXTRA_TV_SHOW);
-        Log.d(TAG, "onCreate: "+item);
         if (item != null){
             ImageView imgPoster = findViewById(R.id.iv_movie_poster);
             Glide.with(this)

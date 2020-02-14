@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Movie Catalog MADE</string>
-    <string name="status">Status</string>
     <string name="title">Title</string>
     <string name="released_date">Released Date</string>
     <string name="description">Description</string>
-    <string name="runtime">Runtime</string>
-    <string name="score">Score</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_movies">Movies</string>
-    <string name="title_tv_show">Tv Show</string>
+    <string name="title_tv_show">TV Show</string>
     <string name="change_language">Change Language Settings</string>
     <string name="star_icon">Icon</string>
     <string name="timer_icon">Icon</string>
@@ -21,6 +16,5 @@
     <string name="line">line</string>
     <string name="overview">Overview</string>
     <string name="date_example">2 Februari 2019</string>
-    <string name="title_home">Home</string>
     <string name="image">image</string>
 </resources>

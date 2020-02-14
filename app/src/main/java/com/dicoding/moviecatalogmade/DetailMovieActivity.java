@@ -14,14 +14,16 @@ import com.dicoding.moviecatalogmade.model.Movie;
 public class DetailMovieActivity extends AppCompatActivity {
 
     public static final String EXTRA_MOVIE = "extra_movie";
-    private String title = "Detail Movie";
+    private String customTitle;
     private String customData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
-        setActionBarTitle(title);
+        customTitle = getString(R.string.title_movies);
+        setActionBarTitle("Detail "+customTitle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Movie item = getIntent().getParcelableExtra(EXTRA_MOVIE);
         if (item != null){
@@ -33,16 +35,16 @@ public class DetailMovieActivity extends AppCompatActivity {
                     .into(imgPoster);
 
             TextView txtJudul = findViewById(R.id.tv_movie_title);
-            txtJudul.setText(item.getJudul());
+            txtJudul.setText(item.getTitle());
 
             TextView txtDurasi = findViewById(R.id.tv_movie_runtime);
-            txtDurasi.setText(item.getDurasi());
+            txtDurasi.setText(item.getRuntime());
 
             TextView txtRilis = findViewById(R.id.tv_movie_released);
-            txtRilis.setText(item.getTayang());
+            txtRilis.setText(item.getRelease_date());
 
             TextView txtDeskripsi = findViewById(R.id.tv_movie_description);
-            txtDeskripsi.setText(item.getDescription());
+            txtDeskripsi.setText(item.getOverview());
 
             TextView txtSkor = findViewById(R.id.tv_movie_score);
             customData = item.getScore()+"%";
