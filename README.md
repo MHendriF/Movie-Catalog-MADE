@@ -12,6 +12,11 @@ Aplikasi ini dibuat untuk memenuhi syarat kelulusan pada kelas Dicoding [Menjadi
     * Syarat: 
         * Menampilkan poster dan informasi film pada halaman detail film.
         * Menggunakan **Parcelable** sebagai interface dari obyek data yang akan dikirimkan antar **Activity**.
-		
+	
+### Additional
+    
+	* Menerapkan mekanisme Intent dengan baik dan benar.
+    * Menuliskan kode dengan bersih.
+	
 ### Author
 _M Hendri Febriansyah_
