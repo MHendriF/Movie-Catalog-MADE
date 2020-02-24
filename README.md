@@ -21,5 +21,11 @@ Aplikasi ini dibuat untuk memenuhi syarat kelulusan pada kelas Dicoding [Belajar
 	* Syarat:
 		* Aplikasi harus mendukung bahasa Indonesia dan bahasa Inggris.
 		
+### Additional
+
+    * Menerapkan konsep Material Design pada penyusunan layout.
+    * Menerapkan ConstraintLayout dengan baik dan benar.
+    * Menuliskan kode dengan bersih.
+		
 ### Author
 _M Hendri Febriansyah_
