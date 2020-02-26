@@ -20,6 +20,9 @@ import com.dicoding.moviecatalogmade.model.Movie;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewViewHolder> {
 
     private Context context;
@@ -41,9 +44,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewView
     public void onBindViewHolder(@NonNull CardViewViewHolder holder, int position) {
         Movie movie = movies.get(position);
 
-        holder.txtName.setText(movie.getTitle());
-        holder.txtRilis.setText(movie.getRelease_date());
-        holder.txtDescription.setText(movie.getOverview());
+        holder.tvTitle.setText(movie.getTitle());
+        holder.tvReleased.setText(movie.getRelease_date());
+        holder.tvOverview.setText(movie.getOverview());
         Glide.with(holder.itemView.getContext())
                 .load(movie.getPoster())
                 .apply(new RequestOptions().override(200, 300))
@@ -58,17 +61,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewView
 
     public class CardViewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView txtName;
-        TextView txtRilis;
-        TextView txtDescription;
+        @BindView(R.id.iv_movie_poster)
         ImageView imgPoster;
+        @BindView(R.id.tv_movie_name)
+        TextView tvTitle;
+        @BindView(R.id.tv_movie_rilis)
+        TextView tvReleased;
+        @BindView(R.id.tv_movie_description)
+        TextView tvOverview;
 
-        public CardViewViewHolder(@NonNull View itemView) {
+        private CardViewViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtName = itemView.findViewById(R.id.tv_movie_name);
-            txtRilis = itemView.findViewById(R.id.tv_movie_rilis);
-            txtDescription = itemView.findViewById(R.id.tv_movie_description);
-            imgPoster = itemView.findViewById(R.id.iv_movie_poster);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
@@ -83,7 +87,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewView
         }
     }
 
-    public ArrayList<Movie> getMovies() {
+    private ArrayList<Movie> getMovies() {
         return movies;
     }
 }

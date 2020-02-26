@@ -1,6 +1,5 @@
 package com.dicoding.moviecatalogmade.fragment;
 
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,8 +37,7 @@ public class MovieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_movie, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_movie, container, false);
     }
 
     @Override
