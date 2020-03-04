@@ -1,6 +1,8 @@
 package com.dicoding.moviecatalogmade.viewmodel;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -22,7 +24,7 @@ public class MovieViewModel extends ViewModel {
 
     private MutableLiveData<ArrayList<Movie>> listMovies = new MutableLiveData<>();
 
-    public void setMovies(final String movies) {
+    public void setMovies(final Context context) {
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<Movie> listItems = new ArrayList<>();
 
@@ -49,7 +51,8 @@ public class MovieViewModel extends ViewModel {
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.d("onFailure", error.getMessage());
+                //Log.d("onFailure", error.getMessage());
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

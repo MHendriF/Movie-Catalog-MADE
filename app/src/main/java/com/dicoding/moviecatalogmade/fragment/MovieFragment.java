@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.dicoding.moviecatalogmade.DetailMovieActivity;
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.adapter.MovieAdapter;
 import com.dicoding.moviecatalogmade.model.Movie;
@@ -62,7 +61,7 @@ public class MovieFragment extends Fragment {
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         if(getActivity() != null){
             movieViewModel.getMovies().observe(getActivity(), getMovie);
-            movieViewModel.setMovies(DetailMovieActivity.EXTRA_MOVIE);
+            movieViewModel.setMovies(getActivity());
             showLoading(true);
         }
     }

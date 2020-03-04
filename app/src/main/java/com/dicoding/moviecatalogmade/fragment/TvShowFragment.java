@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.dicoding.moviecatalogmade.DetailTvShowActivity;
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.adapter.TvShowAdapter;
 import com.dicoding.moviecatalogmade.model.TvShow;
@@ -62,7 +61,7 @@ public class TvShowFragment extends Fragment {
         tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
         if(getActivity() != null){
             tvShowViewModel.getTvShows().observe(getActivity(), getTvShow);
-            tvShowViewModel.setListTvShows(DetailTvShowActivity.EXTRA_TV_SHOW);
+            tvShowViewModel.setTvShows(getActivity());
             showLoading(true);
         }
 
