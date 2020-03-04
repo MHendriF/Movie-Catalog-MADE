@@ -39,48 +39,24 @@ public class Movie implements Parcelable {
         return overview;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
     public Double getScore() {
         return score;
-    }
-
-    public void setScore(Double score) {
-        this.score = score;
     }
 
     public String getPoster() {
         return poster;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
     public String getPopularity() {
         return popularity;
-    }
-
-    public void setPopularity(String popularity) {
-        this.popularity = popularity;
     }
 
     public String getRelease_date() {
         return release_date;
     }
 
-    public void setRelease_date(String release_date) {
-        this.release_date = release_date;
-    }
-
     public String getLanguage() {
         return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 
     @Override
