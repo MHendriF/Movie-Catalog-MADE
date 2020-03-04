@@ -30,7 +30,7 @@
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/poster_aquaman"
+            android:src="@color/colorPrimary"
             android:scaleType="centerCrop"/>
 
         <LinearLayout
@@ -41,7 +41,7 @@
             android:layout_marginRight="@dimen/spacing_xmedium">
 
             <TextView
-                android:id="@+id/tv_movie_name"
+                android:id="@+id/tv_movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title"
@@ -49,7 +49,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/tv_movie_rilis"
+                android:id="@+id/tv_movie_released"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
@@ -57,7 +57,7 @@
                 android:layout_marginBottom="8dp"/>
 
             <TextView
-                android:id="@+id/tv_movie_description"
+                android:id="@+id/tv_movie_overview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"

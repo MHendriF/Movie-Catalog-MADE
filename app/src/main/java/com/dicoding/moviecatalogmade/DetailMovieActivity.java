@@ -3,7 +3,11 @@ package com.dicoding.moviecatalogmade;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,14 +22,14 @@ import butterknife.ButterKnife;
 public class DetailMovieActivity extends AppCompatActivity {
 
     public static final String EXTRA_MOVIE = "extra_movie";
-    private String customData;
+    private ProgressBar progressBar;
 
     @BindView(R.id.iv_movie_poster)
     ImageView imgPoster;
     @BindView(R.id.tv_movie_title)
     TextView tvTitle;
-    @BindView(R.id.tv_movie_runtime)
-    TextView tvRuntime;
+    @BindView(R.id.tv_movie_popularity)
+    TextView tvPopularity;
     @BindView(R.id.tv_movie_released)
     TextView tvReleased;
     @BindView(R.id.tv_movie_description)
@@ -43,23 +47,46 @@ public class DetailMovieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_movie);
         ButterKnife.bind(this);
         setActionBarTitle("Detail "+customTitle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        Movie item = getIntent().getParcelableExtra(EXTRA_MOVIE);
-        if (item != null){
-            Glide.with(this)
-                    .load(item.getPoster())
-                    .apply(new RequestOptions().override(600, 900))
-                    .into(imgPoster);
-
-            tvTitle.setText(item.getTitle());
-            tvRuntime.setText(item.getRuntime());
-            tvReleased.setText(item.getRelease_date());
-            tvOverview.setText(item.getOverview());
-            customData = item.getScore()+"%";
-            tvScore.setText(customData);
-            tvLanguage.setText(item.getLanguage());
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        progressBar = findViewById(R.id.progressBarGeneral);
+
+        final Handler handler = new Handler();
+        new Thread(new Runnable() {
+            public void run() {
+                try{
+                    Thread.sleep(2200);
+                }
+                catch (Exception e) {
+                    Log.d("Thread", "run: "+e);
+                }
+
+                handler.post(new Runnable() {
+                    public void run() {
+                        Movie item = getIntent().getParcelableExtra(EXTRA_MOVIE);
+                        if (item != null){
+                            String urlPoster = BuildConfig.API_POSTER_PATH + item.getPoster();
+
+                            Glide.with(DetailMovieActivity.this)
+                                    .load(urlPoster)
+                                    .apply(new RequestOptions().override(600, 900))
+                                    .into(imgPoster);
+
+                            tvTitle.setText(item.getTitle());
+                            tvPopularity.setText(item.getPopularity());
+                            tvReleased.setText(item.getRelease_date());
+                            tvOverview.setText(item.getOverview());
+                            tvScore.setText(String.valueOf(item.getScore()));
+                            tvLanguage.setText(item.getLanguage());
+
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                });
+            }
+        }).start();
 
     }
 

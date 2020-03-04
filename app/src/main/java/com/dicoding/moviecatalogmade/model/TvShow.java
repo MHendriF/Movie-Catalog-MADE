@@ -3,15 +3,17 @@ package com.dicoding.moviecatalogmade.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class TvShow implements Parcelable {
-    private String title;
-    private String language;
-    private String overview;
-    private int score;
-    private String poster;
-    private String runtime;
-    private String release_date;
+import org.json.JSONObject;
 
+public class TvShow implements Parcelable {
+
+    private String title;
+    private String overview;
+    private Double score;
+    private String poster;
+    private String popularity;
+    private String release_date;
+    private String language;
     public TvShow(){}
 
     public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {
@@ -34,6 +36,38 @@ public class TvShow implements Parcelable {
         this.title = title;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(String popularity) {
+        this.popularity = popularity;
+    }
+
     public String getRelease_date() {
         return release_date;
     }
@@ -50,38 +84,6 @@ public class TvShow implements Parcelable {
         this.language = language;
     }
 
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public String getPoster() {
-        return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
-    public String getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(String runtime) {
-        this.runtime = runtime;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -92,19 +94,43 @@ public class TvShow implements Parcelable {
         dest.writeString(title);
         dest.writeString(release_date);
         dest.writeString(overview);
-        dest.writeInt(score);
+        dest.writeValue(score);
         dest.writeString(poster);
-        dest.writeString(runtime);
+        dest.writeString(popularity);
         dest.writeString(language);
     }
 
-    protected TvShow(Parcel in) {
+    private TvShow(Parcel in) {
         title = in.readString();
         release_date = in.readString();
         overview = in.readString();
-        score = in.readInt();
+        score = (Double) in.readValue(Double.class.getClassLoader());
         poster = in.readString();
-        runtime = in.readString();
+        popularity = in.readString();
         language = in.readString();
+    }
+
+    public TvShow(JSONObject object) {
+        try {
+            Double score = object.getDouble("vote_average");
+            String title = object.getString("name");
+            String language = object.getString("original_language");
+            String overview = object.getString("overview");
+            String release_date = object.getString("first_air_date");
+            String poster = object.getString("poster_path");
+            String popularity = object.getString("popularity");
+
+            this.title = title;
+            this.score = score;
+            this.release_date = release_date;
+            this.overview = overview;
+            this.release_date = release_date;
+            this.poster = poster;
+            this.language = language;
+            this.popularity = popularity;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

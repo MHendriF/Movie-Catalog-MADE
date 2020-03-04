@@ -2,7 +2,6 @@ package com.dicoding.moviecatalogmade.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.dicoding.moviecatalogmade.BuildConfig;
 import com.dicoding.moviecatalogmade.DetailMovieActivity;
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.model.Movie;
@@ -26,11 +26,16 @@ import butterknife.ButterKnife;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewViewHolder> {
 
     private Context context;
-    private ArrayList<Movie> movies;
+    private ArrayList<Movie> mData = new ArrayList<>();
 
-    public MovieAdapter(Context context, ArrayList<Movie> movies){
+    public void setData(ArrayList<Movie> items) {
+        mData.clear();
+        mData.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    public MovieAdapter(Context context){
         this.context = context;
-        this.movies = movies;
     }
 
     @NonNull
@@ -42,13 +47,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewView
 
     @Override
     public void onBindViewHolder(@NonNull CardViewViewHolder holder, int position) {
-        Movie movie = movies.get(position);
+        Movie movie = mData.get(position);
+        String urlPoster = BuildConfig.API_POSTER_PATH + movie.getPoster();
 
         holder.tvTitle.setText(movie.getTitle());
         holder.tvReleased.setText(movie.getRelease_date());
         holder.tvOverview.setText(movie.getOverview());
         Glide.with(holder.itemView.getContext())
-                .load(movie.getPoster())
+                .load(urlPoster)
                 .apply(new RequestOptions().override(200, 300))
                 .into(holder.imgPoster);
 
@@ -56,18 +62,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewView
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return mData.size();
     }
 
     public class CardViewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.iv_movie_poster)
         ImageView imgPoster;
-        @BindView(R.id.tv_movie_name)
+        @BindView(R.id.tv_movie_title)
         TextView tvTitle;
-        @BindView(R.id.tv_movie_rilis)
+        @BindView(R.id.tv_movie_released)
         TextView tvReleased;
-        @BindView(R.id.tv_movie_description)
+        @BindView(R.id.tv_movie_overview)
         TextView tvOverview;
 
         private CardViewViewHolder(@NonNull View itemView) {
@@ -88,6 +94,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewView
     }
 
     private ArrayList<Movie> getMovies() {
-        return movies;
+        return mData;
     }
 }
