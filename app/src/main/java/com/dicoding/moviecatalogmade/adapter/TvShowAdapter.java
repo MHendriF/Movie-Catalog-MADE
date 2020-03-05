@@ -13,20 +13,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.dicoding.moviecatalogmade.BuildConfig;
 import com.dicoding.moviecatalogmade.DetailTvShowActivity;
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.model.TvShow;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.CardViewViewHolder> {
 
     private Context context;
-    private ArrayList<TvShow> tvShows;
+    private ArrayList<TvShow> mData = new ArrayList<>();
 
-    public TvShowAdapter(Context context, ArrayList<TvShow> tvShows){
+    public void setData(ArrayList<TvShow> items) {
+        mData.clear();
+        mData.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    public TvShowAdapter(Context context){
         this.context = context;
-        this.tvShows = tvShows;
     }
 
     @NonNull
@@ -38,34 +47,37 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.CardViewVi
 
     @Override
     public void onBindViewHolder(@NonNull TvShowAdapter.CardViewViewHolder holder, int position) {
-        TvShow tvShow = tvShows.get(position);
+        TvShow tvShow = mData.get(position);
+        String urlPoster = BuildConfig.API_POSTER_PATH + tvShow.getPoster();
 
-        holder.txtName.setText(tvShow.getTitle());
-        holder.txtRilis.setText(tvShow.getRelease_date());
-        holder.txtDescription.setText(tvShow.getOverview());
+        holder.tvTitle.setText(tvShow.getTitle());
+        holder.tvReleased.setText(tvShow.getRelease_date());
+        holder.tvOverview.setText(tvShow.getOverview());
         Glide.with(holder.itemView.getContext())
-                .load(tvShow.getPoster())
+                .load(urlPoster)
                 .apply(new RequestOptions().override(200, 300))
                 .into(holder.imgPoster);
     }
 
     @Override
     public int getItemCount() {
-        return tvShows.size();
+        return mData.size();
     }
 
     public class CardViewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView txtName;
-        TextView txtRilis;
-        TextView txtDescription;
-        ImageView imgPoster;
 
-        public CardViewViewHolder(@NonNull View itemView) {
+        @BindView(R.id.iv_movie_poster)
+        ImageView imgPoster;
+        @BindView(R.id.tv_movie_title)
+        TextView tvTitle;
+        @BindView(R.id.tv_movie_released)
+        TextView tvReleased;
+        @BindView(R.id.tv_movie_overview)
+        TextView tvOverview;
+
+        private CardViewViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtName = itemView.findViewById(R.id.tv_movie_name);
-            txtRilis = itemView.findViewById(R.id.tv_movie_rilis);
-            txtDescription = itemView.findViewById(R.id.tv_movie_description);
-            imgPoster = itemView.findViewById(R.id.iv_movie_poster);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
@@ -80,7 +92,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.CardViewVi
         }
     }
 
-    public ArrayList<TvShow> getTvShows() {
-        return tvShows;
+    private ArrayList<TvShow> getTvShows() {
+        return mData;
     }
 }

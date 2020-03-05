@@ -1,26 +1,24 @@
 package com.dicoding.moviecatalogmade.fragment;
 
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.dicoding.moviecatalogmade.R;
-import com.dicoding.moviecatalogmade.adapter.MovieAdapter;
 import com.dicoding.moviecatalogmade.adapter.TvShowAdapter;
-import com.dicoding.moviecatalogmade.model.Movie;
-import com.dicoding.moviecatalogmade.model.MovieData;
 import com.dicoding.moviecatalogmade.model.TvShow;
-import com.dicoding.moviecatalogmade.model.TvShowData;
+import com.dicoding.moviecatalogmade.viewmodel.TvShowViewModel;
 
 import java.util.ArrayList;
 
@@ -31,8 +29,9 @@ import java.util.ArrayList;
 public class TvShowFragment extends Fragment {
 
     private RecyclerView rvTvShow;
-    private ArrayList<TvShow> tvShows = new ArrayList<>();
     private TvShowAdapter tvShowAdapter;
+    private ProgressBar progressBar;
+    private TvShowViewModel tvShowViewModel;
 
     public TvShowFragment() {
         // Required empty public constructor
@@ -42,8 +41,7 @@ public class TvShowFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tv_show, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_tv_show, container, false);
     }
 
     @Override
@@ -51,14 +49,40 @@ public class TvShowFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvTvShow = view.findViewById(R.id.rv_tv_show);
         rvTvShow.setHasFixedSize(true);
-        tvShows.addAll(TvShowData.getListData());
+        progressBar = view.findViewById(R.id.progressBar);
         showRecycleList();
     }
 
     private void showRecycleList() {
         rvTvShow.setLayoutManager(new LinearLayoutManager(getContext()));
-        tvShowAdapter = new TvShowAdapter(getContext(), tvShows);
+        tvShowAdapter = new TvShowAdapter(getContext());
         rvTvShow.setAdapter(tvShowAdapter);
+
+        tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
+        if(getActivity() != null){
+            tvShowViewModel.getTvShows().observe(getActivity(), getTvShow);
+            tvShowViewModel.setTvShows(getActivity());
+            showLoading(true);
+        }
+
+    }
+
+    private Observer<ArrayList<TvShow>> getTvShow = new Observer<ArrayList<TvShow>>() {
+        @Override
+        public void onChanged(ArrayList<TvShow> tvShows) {
+            if (tvShows != null) {
+                tvShowAdapter.setData(tvShows);
+            }
+            showLoading(false);
+        }
+    };
+
+    private void showLoading(Boolean state) {
+        if (state) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
 }
