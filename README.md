@@ -1,4 +1,4 @@
-# Movie Catalog - Submission 3
+# Movie Catalog - Submission 4
 
 Aplikasi ini dibuat untuk memenuhi syarat kelulusan pada kelas Dicoding [Belajar Fundamental Aplikasi Android](https://www.dicoding.com/academies/14)
 
@@ -18,11 +18,19 @@ Aplikasi ini dibuat untuk memenuhi syarat kelulusan pada kelas Dicoding [Belajar
 		* Menggunakan ConstraintLayout untuk menyusun layout.
 		* Menampilkan indikator loading ketika data sedang dimuat.
 		
-3. Localization
+3. Favorite Film
+	* Syarat:
+		* Dapat menyimpan film ke database favorite.
+		* Dapat menghapus film dari database favorite.
+		* Terdapat halaman untuk menampilkan daftar Favorite Movies.
+		* Terdapat halaman untuk menampilkan daftar Favorite Tv Show.
+		* Menampilkan halaman detail dari daftar Favorite.
+
+4. Localization
 	* Syarat:
 		* Aplikasi harus mendukung bahasa Indonesia dan bahasa Inggris.
 		
-4. Configuration Changes
+5. Configuration Changes
 	* Syarat:
 		* Aplikasi harus bisa menjaga data yang sudah dimuat ketika terjadi pergantian orientasi dari potrait ke landscape atau sebaliknya.
 		
@@ -31,9 +39,20 @@ Aplikasi ini dibuat untuk memenuhi syarat kelulusan pada kelas Dicoding [Belajar
 ### Additional
     
 	* Menggunakan library pihak ketiga seperti Retrofit, Fast Android Networking, dsb.
+	* Menggunakan library penyimpanan lokal pihak ketiga seperti Room, Realm, dsb.
     * Menerapkan design pattern seperti MVP, MVVM, Arch Component, dsb.
     * Aplikasi bisa memberikan pesan eror jika data tidak berhasil ditampilkan.
     * Menuliskan kode dengan bersih.
+
+### Resources
+	* Untuk mendapatkan API Key silakan ikuti tutorial pada tautan berikut:
+		https://blog.dicoding.com/registrasi-testing-themoviedb-api/
+	* Gunakan endpoint berikut untuk mendapatkan data Movies:
+		https://api.themoviedb.org/3/discover/movie?api_key={API KEY}&language=en-US
+	* Gunakan endpoint berikut untuk mendapatkan data Tv Show:
+		https://api.themoviedb.org/3/discover/tv?api_key={API KEY}&language=en-US
+	* Gunakan url berikut untuk mendapatkan poster film.
+		https://image.tmdb.org/t/p/{POSTER SIZE}{POSTER FILENAME}
 
 ### Author
 _M Hendri Febriansyah_
