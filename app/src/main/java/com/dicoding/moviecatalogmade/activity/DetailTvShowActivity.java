@@ -1,4 +1,4 @@
-package com.dicoding.moviecatalogmade;
+package com.dicoding.moviecatalogmade.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.dicoding.moviecatalogmade.BuildConfig;
+import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.model.TvShow;
 
 import butterknife.BindString;

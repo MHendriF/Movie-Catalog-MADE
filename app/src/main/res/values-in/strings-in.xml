@@ -17,4 +17,7 @@
     <string name="overview">Sinopsis</string>
     <string name="date_example">Tanggal</string>
     <string name="image">Gambar</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_favorite">Favorites</string>
 </resources>

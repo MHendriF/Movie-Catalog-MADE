@@ -1,4 +1,4 @@
-package com.dicoding.moviecatalogmade;
+package com.dicoding.moviecatalogmade.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.dicoding.moviecatalogmade.BuildConfig;
+import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.model.Movie;
+import com.dicoding.moviecatalogmade.model.Movie2;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -78,7 +81,7 @@ public class DetailMovieActivity extends AppCompatActivity {
                             tvPopularity.setText(item.getPopularity());
                             tvReleased.setText(item.getRelease_date());
                             tvOverview.setText(item.getOverview());
-                            tvScore.setText(String.valueOf(item.getScore()));
+                            tvScore.setText(item.getScore());
                             tvLanguage.setText(item.getLanguage());
 
                             progressBar.setVisibility(View.INVISIBLE);

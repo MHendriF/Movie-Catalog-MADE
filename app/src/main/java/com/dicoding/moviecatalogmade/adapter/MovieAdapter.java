@@ -14,9 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.moviecatalogmade.BuildConfig;
-import com.dicoding.moviecatalogmade.DetailMovieActivity;
+import com.dicoding.moviecatalogmade.activity.DetailMovieActivity;
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.model.Movie;
+import com.dicoding.moviecatalogmade.model.Movie2;
 
 import java.util.ArrayList;
 

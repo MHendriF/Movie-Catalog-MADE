@@ -9,7 +9,7 @@ public class Movie implements Parcelable {
 
     private String title;
     private String overview;
-    private Double score;
+    private String score;
     private String poster;
     private String popularity;
     private String release_date;
@@ -39,7 +39,7 @@ public class Movie implements Parcelable {
         return overview;
     }
 
-    public Double getScore() {
+    public String getScore() {
         return score;
     }
 
@@ -69,7 +69,7 @@ public class Movie implements Parcelable {
         dest.writeString(title);
         dest.writeString(release_date);
         dest.writeString(overview);
-        dest.writeValue(score);
+        dest.writeString(score);
         dest.writeString(poster);
         dest.writeString(popularity);
         dest.writeString(language);
@@ -79,7 +79,7 @@ public class Movie implements Parcelable {
         title = in.readString();
         release_date = in.readString();
         overview = in.readString();
-        score = (Double) in.readValue(Double.class.getClassLoader());
+        score = in.readString();
         poster = in.readString();
         popularity = in.readString();
         language = in.readString();
@@ -87,7 +87,7 @@ public class Movie implements Parcelable {
 
     public Movie(JSONObject object) {
         try {
-            Double score = object.getDouble("vote_average");
+            String score = String.valueOf(object.getDouble("vote_average"));
             String title = object.getString("title");
             String language = object.getString("original_language");
             String overview = object.getString("overview");

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.moviecatalogmade.BuildConfig;
-import com.dicoding.moviecatalogmade.DetailTvShowActivity;
+import com.dicoding.moviecatalogmade.activity.DetailTvShowActivity;
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.model.TvShow;
 

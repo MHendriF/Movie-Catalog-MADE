@@ -1,4 +1,4 @@
-package com.dicoding.moviecatalogmade;
+package com.dicoding.moviecatalogmade.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.dicoding.moviecatalogmade.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_movie, R.id.navigation_tv_show)
+                R.id.navigation_movie, R.id.navigation_tv_show, R.id.navigation_favorite)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
