@@ -3,16 +3,31 @@ package com.dicoding.moviecatalogmade.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONObject;
 
 public class Movie implements Parcelable {
 
+    @SerializedName(value = "title", alternate = {"name"})
     private String title;
+
+    @SerializedName("overview")
     private String overview;
+
+    @SerializedName("vote_average")
     private String score;
+
+    @SerializedName("poster_path")
     private String poster;
+
+    @SerializedName("popularity")
     private String popularity;
+
+    @SerializedName(value = "release_date", alternate = {"first_air_date"})
     private String release_date;
+
+    @SerializedName("original_language")
     private String language;
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -83,29 +98,5 @@ public class Movie implements Parcelable {
         poster = in.readString();
         popularity = in.readString();
         language = in.readString();
-    }
-
-    public Movie(JSONObject object) {
-        try {
-            String score = String.valueOf(object.getDouble("vote_average"));
-            String title = object.getString("title");
-            String language = object.getString("original_language");
-            String overview = object.getString("overview");
-            String release_date = object.getString("release_date");
-            String poster = object.getString("poster_path");
-            String popularity = object.getString("popularity");
-
-            this.title = title;
-            this.score = score;
-            this.release_date = release_date;
-            this.overview = overview;
-            this.release_date = release_date;
-            this.poster = poster;
-            this.language = language;
-            this.popularity = popularity;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

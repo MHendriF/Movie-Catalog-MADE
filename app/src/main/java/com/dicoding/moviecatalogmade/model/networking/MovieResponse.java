@@ -1,5 +1,6 @@
-package com.dicoding.moviecatalogmade.model;
+package com.dicoding.moviecatalogmade.model.networking;
 
+import com.dicoding.moviecatalogmade.model.Movie;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ public class MovieResponse {
     @SerializedName("page")
     private int page;
     @SerializedName("results")
-    private ArrayList<Movie2> results;
+    private ArrayList<Movie> results;
     @SerializedName("total_results")
     private int totalResults;
     @SerializedName("total_pages")
@@ -22,11 +23,11 @@ public class MovieResponse {
         this.page = page;
     }
 
-    public ArrayList<Movie2> getResults() {
+    public ArrayList<Movie> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<Movie2> results) {
+    public void setResults(ArrayList<Movie> results) {
         this.results = results;
     }
 
