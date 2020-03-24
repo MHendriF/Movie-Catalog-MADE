@@ -2,25 +2,36 @@ package com.dicoding.moviecatalogmade.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
-import com.dicoding.moviecatalogmade.model.Movie2;
+import com.dicoding.moviecatalogmade.model.Movie;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Dao
 public interface MovieDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Movie2... movies);
+    void insert(Movie... movies);
 
-//    @Query("DELETE FROM Movie2 WHERE uid = :uid")
-//    void deleteByUid(int uid);
-//
-//    @Query("DELETE FROM Movie2")
-//    void deleteAll();
+    @Query("SELECT * from movie_table ORDER BY title ASC")
+    LiveData<List<Movie>> getAllMovies();
 
-//    @Query("SELECT * from Movie2 ORDER BY title ASC")
-//    LiveData<ArrayList<Movie2>> getAllMovies();
+    @Query("SELECT * from movie_table")
+    List<Movie> getFavMovies();
+
+    @Query("SELECT COUNT(uid) FROM movie_table WHERE title = :title")
+    int getMovieByTitle(String title);
+
+    @Query("SELECT * FROM movie_table WHERE title = :title")
+    List<Movie> findMovie(String title);
+
+    @Delete
+    void delete(Movie movie);
+
+    @Update
+    void update(Movie... movie);
 }

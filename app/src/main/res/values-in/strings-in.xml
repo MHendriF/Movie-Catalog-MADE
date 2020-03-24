@@ -6,6 +6,7 @@
     <string name="description">Deskripsi</string>
     <string name="title_movies">Film</string>
     <string name="title_tv_show">Acara TV</string>
+    <string name="title_favorite">Favorit</string>
     <string name="change_language">Ubah Pengaturan Bahasa</string>
     <string name="star_icon">Ikon</string>
     <string name="timer_icon">Ikon</string>
@@ -17,7 +18,11 @@
     <string name="overview">Sinopsis</string>
     <string name="date_example">Tanggal</string>
     <string name="image">Gambar</string>
-
+    <string name="confirm_message">Apakah anda yakin ingin menghapus item ini?</string>
+    <string name="confirm_title">Konfirmasi penghapusan</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="add_favorite">Berhasil menambahkan ke daftar favorit</string>
+    <string name="remove_favorite">Berhasil menghapus dari daftar favorit</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_favorite">Favorites</string>
 </resources>

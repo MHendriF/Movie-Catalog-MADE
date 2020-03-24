@@ -4,7 +4,8 @@
     <string name="released_date">Released Date</string>
     <string name="description">Description</string>
     <string name="title_movies">Movies</string>
-    <string name="title_tv_show">TV Show</string>
+    <string name="title_tv_show">TV Shows</string>
+    <string name="title_favorite">Favorites</string>
     <string name="change_language">Change Language Settings</string>
     <string name="star_icon">Icon</string>
     <string name="timer_icon">Icon</string>
@@ -16,7 +17,11 @@
     <string name="overview">Overview</string>
     <string name="date_example">Date</string>
     <string name="image">image</string>
-
+    <string name="confirm_message">Are you sure want to delete this item?</string>
+    <string name="confirm_title">Confirm to delete</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="add_favorite">Add to favorites successfully</string>
+    <string name="remove_favorite">Delete from favorites successfully</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_favorite">Favorites</string>
 </resources>

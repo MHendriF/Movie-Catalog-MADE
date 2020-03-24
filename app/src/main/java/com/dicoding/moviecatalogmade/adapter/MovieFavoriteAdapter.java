@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.moviecatalogmade.BuildConfig;
-import com.dicoding.moviecatalogmade.activity.DetailMovieActivity;
 import com.dicoding.moviecatalogmade.R;
+import com.dicoding.moviecatalogmade.activity.DetailMovieActivity;
 import com.dicoding.moviecatalogmade.model.Movie;
 
 import java.util.ArrayList;
@@ -24,26 +24,25 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewViewHolder> {
+public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdapter.CardViewViewHolder> {
 
     private Context context;
-    private ArrayList<Movie> mData = new ArrayList<>();
+    private List<Movie> mData = new ArrayList<>();
 
-    public void setData(ArrayList<Movie> items) {
-        mData.clear();
-        mData.addAll(items);
-        notifyDataSetChanged();
+    public MovieFavoriteAdapter(Context context) {
+        this.context = context;
     }
 
-    public MovieAdapter(Context context){
-        this.context = context;
+    public void setData(List<Movie> movies) {
+        this.mData = movies;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public CardViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
-        return new CardViewViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorite, parent, false);
+        return new MovieFavoriteAdapter.CardViewViewHolder(view);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewView
         return mData.size();
     }
 
-    public class CardViewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class CardViewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         @BindView(R.id.iv_movie_poster)
         ImageView imgPoster;
@@ -89,12 +88,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewView
 
             Intent intent = new Intent(context, DetailMovieActivity.class);
             intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movie);
-            intent.putExtra(DetailMovieActivity.EXTRA_FROM, "movie");
+            intent.putExtra(DetailMovieActivity.EXTRA_FROM, "movie_favorite");
             context.startActivity(intent);
         }
     }
 
-    private ArrayList<Movie> getMovies() {
+    private List<Movie> getMovies() {
         return mData;
     }
 }

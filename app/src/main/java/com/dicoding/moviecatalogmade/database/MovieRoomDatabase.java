@@ -9,9 +9,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.dicoding.moviecatalogmade.model.Movie2;
+import com.dicoding.moviecatalogmade.model.Movie;
 
-@Database(entities = {Movie2.class}, version = 1, exportSchema = false)
+@Database(entities = {Movie.class}, version = 1, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
 
     public abstract MovieDAO movieDAO();

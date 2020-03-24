@@ -3,46 +3,39 @@ package com.dicoding.moviecatalogmade.viewmodel;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.dicoding.moviecatalogmade.BuildConfig;
+import com.dicoding.moviecatalogmade.activity.DetailMovieActivity;
 import com.dicoding.moviecatalogmade.activity.MainActivity;
 import com.dicoding.moviecatalogmade.model.Movie;
-import com.dicoding.moviecatalogmade.model.Movie2;
 import com.dicoding.moviecatalogmade.model.networking.MovieResponse;
 import com.dicoding.moviecatalogmade.networking.ApiClient;
 import com.dicoding.moviecatalogmade.networking.ApiInterface;
 import com.dicoding.moviecatalogmade.repository.MovieRepository;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MovieViewModel extends ViewModel {
+public class MovieViewModel extends AndroidViewModel {
 
-    private MutableLiveData<ArrayList<Movie>> listMovies = new MutableLiveData<>();
+    private LiveData<List<Movie>> movies;
+    private MovieRepository movieRepository;
+    private MutableLiveData<ArrayList<Movie>> movieList = new MutableLiveData<>();
+    private static final String TAG="Trace "+ MovieViewModel.class.getSimpleName();
 
-//    private LiveData<ArrayList<Movie2>> movies;
-//    private MovieRepository movieRepository;
-//
-//    public MovieViewModel(Application application){
-//        super(application);
-//        movieRepository = new MovieRepository(application);
-//        movies = movieRepository.getAllMovies();
-//    }
+    public MovieViewModel(Application application){
+        super(application);
+        movieRepository = new MovieRepository(application);
+        movies = movieRepository.getAllMovies();
+    }
 
     public void setMovies(final Context context) {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
@@ -53,7 +46,7 @@ public class MovieViewModel extends ViewModel {
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 try {
                     ArrayList<Movie> movies = response.body().getResults();
-                    listMovies.postValue(movies);
+                    movieList.postValue(movies);
                 } catch (Exception e) {
                     Log.d(MainActivity.class.getSimpleName(), e.getLocalizedMessage());
                 }
@@ -67,10 +60,27 @@ public class MovieViewModel extends ViewModel {
     }
 
     public LiveData<ArrayList<Movie>> getMovies() {
-        return listMovies;
+        return movieList;
     }
-//
-//    public void insert(Movie2 movie) {
-//        movieRepository.insert(movie);
-//    }
+
+    public LiveData<List<Movie>> getMoviesFav() {
+        return movies;
+    }
+
+    public void insert(Movie movie) {
+        movieRepository.insert(movie);
+    }
+
+    public void delete(Movie movie) { movieRepository.delete(movie); }
+
+//    public void update(Movie movie) { movieRepository.update(movie); }
+
+    public boolean checkMovie (String title) {
+        try {
+            return movieRepository.checkMovie(title);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
