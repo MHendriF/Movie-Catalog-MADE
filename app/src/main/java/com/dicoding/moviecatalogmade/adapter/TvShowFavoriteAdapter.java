@@ -14,39 +14,41 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.moviecatalogmade.BuildConfig;
-import com.dicoding.moviecatalogmade.activity.DetailTvShowActivity;
 import com.dicoding.moviecatalogmade.R;
+import com.dicoding.moviecatalogmade.activity.DetailMovieActivity;
+import com.dicoding.moviecatalogmade.activity.DetailTvShowActivity;
+import com.dicoding.moviecatalogmade.model.Movie;
 import com.dicoding.moviecatalogmade.model.TvShow;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.CardViewViewHolder> {
+public class TvShowFavoriteAdapter extends RecyclerView.Adapter<TvShowFavoriteAdapter.CardViewViewHolder>{
 
     private Context context;
-    private ArrayList<TvShow> mData = new ArrayList<>();
+    private List<TvShow> mData = new ArrayList<>();
 
-    public void setData(ArrayList<TvShow> items) {
-        mData.clear();
-        mData.addAll(items);
-        notifyDataSetChanged();
+    public TvShowFavoriteAdapter(Context context) {
+        this.context = context;
     }
 
-    public TvShowAdapter(Context context){
-        this.context = context;
+    public void setData(List<TvShow> tvShows) {
+        this.mData = tvShows;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public TvShowAdapter.CardViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tv_show, parent, false);
+    public CardViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorite, parent, false);
         return new CardViewViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TvShowAdapter.CardViewViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CardViewViewHolder holder, int position) {
         TvShow data = mData.get(position);
         String urlPoster = BuildConfig.API_POSTER_PATH + data.getPoster();
 
@@ -88,12 +90,12 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.CardViewVi
 
             Intent intent = new Intent(context, DetailTvShowActivity.class);
             intent.putExtra(DetailTvShowActivity.EXTRA_TV_SHOW, data);
-            intent.putExtra(DetailTvShowActivity.EXTRA_FROM, "tv_show");
+            intent.putExtra(DetailTvShowActivity.EXTRA_FROM, "tv_show_favorite");
             context.startActivity(intent);
         }
     }
 
-    private ArrayList<TvShow> getTvShows() {
+    private List<TvShow> getTvShows() {
         return mData;
     }
 }

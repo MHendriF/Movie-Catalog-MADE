@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,14 +17,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.dicoding.moviecatalogmade.R;
-import com.dicoding.moviecatalogmade.adapter.MovieAdapter;
 import com.dicoding.moviecatalogmade.adapter.MovieFavoriteAdapter;
-import com.dicoding.moviecatalogmade.database.MovieDAO;
-import com.dicoding.moviecatalogmade.database.MovieRoomDatabase;
 import com.dicoding.moviecatalogmade.model.Movie;
-import com.dicoding.moviecatalogmade.viewmodel.MovieViewModel;
+import com.dicoding.moviecatalogmade.viewmodel.MovieFavoriteViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +31,6 @@ public class MovieFavoriteFragment extends Fragment {
     private RecyclerView rvMovie;
     private MovieFavoriteAdapter mAdapter;
     private ProgressBar progressBar;
-    private MovieViewModel movieViewModel;
 
     public MovieFavoriteFragment() {
         // Required empty public constructor
@@ -64,24 +58,14 @@ public class MovieFavoriteFragment extends Fragment {
         mAdapter = new MovieFavoriteAdapter(getActivity());
         rvMovie.setAdapter(mAdapter);
 
-//        ArrayList<Movie> data = (ArrayList<Movie>) loadFavMovies();
-//        Log.d("Trace", "size: "+data.size());
-        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-
-//        if(getActivity() != null){
-//            movieViewModel.setFavMovie(data);
-//            movieViewModel.getMovies().observe(getActivity(), getMovie);
-//            showLoading(true);
-//        }
-
+        MovieFavoriteViewModel viewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
         if(getActivity() != null){
-            movieViewModel.getMoviesFav().observe(getActivity(), getMovie);
-            movieViewModel.setMovies(getActivity());
+            viewModel.getMoviesFavorite().observe(getActivity(), getMovies);
             showLoading(true);
         }
     }
 
-    private Observer<List<Movie>> getMovie = new Observer<List<Movie>>() {
+    private Observer<List<Movie>> getMovies = new Observer<List<Movie>>() {
         @Override
         public void onChanged(List<Movie> movies) {
             if (movies != null) {

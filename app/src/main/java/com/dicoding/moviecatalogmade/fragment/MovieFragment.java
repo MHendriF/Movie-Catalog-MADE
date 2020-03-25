@@ -32,7 +32,6 @@ public class MovieFragment extends Fragment {
     private RecyclerView rvMovie;
     private MovieAdapter movieAdapter;
     private ProgressBar progressBar;
-    private MovieViewModel movieViewModel;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -59,10 +58,10 @@ public class MovieFragment extends Fragment {
         movieAdapter = new MovieAdapter(getContext());
         rvMovie.setAdapter(movieAdapter);
 
-        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         if(getActivity() != null){
             movieViewModel.getMovies().observe(getActivity(), getMovie);
-            movieViewModel.setMovies(getActivity());
+            movieViewModel.setMovies();
             showLoading(true);
         }
     }

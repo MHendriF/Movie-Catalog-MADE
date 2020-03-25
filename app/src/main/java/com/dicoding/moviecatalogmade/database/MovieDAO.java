@@ -14,20 +14,14 @@ import java.util.List;
 
 @Dao
 public interface MovieDAO {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Movie... movies);
 
     @Query("SELECT * from movie_table ORDER BY title ASC")
     LiveData<List<Movie>> getAllMovies();
 
-    @Query("SELECT * from movie_table")
-    List<Movie> getFavMovies();
-
     @Query("SELECT COUNT(uid) FROM movie_table WHERE title = :title")
     int getMovieByTitle(String title);
-
-    @Query("SELECT * FROM movie_table WHERE title = :title")
-    List<Movie> findMovie(String title);
 
     @Delete
     void delete(Movie movie);

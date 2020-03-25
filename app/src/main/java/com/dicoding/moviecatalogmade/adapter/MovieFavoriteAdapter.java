@@ -42,7 +42,7 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
     @Override
     public CardViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorite, parent, false);
-        return new MovieFavoriteAdapter.CardViewViewHolder(view);
+        return new CardViewViewHolder(view);
     }
 
     @Override

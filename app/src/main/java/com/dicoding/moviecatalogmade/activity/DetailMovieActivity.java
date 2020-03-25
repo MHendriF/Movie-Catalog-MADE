@@ -3,7 +3,6 @@ package com.dicoding.moviecatalogmade.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.room.Room;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,22 +13,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.moviecatalogmade.BuildConfig;
 import com.dicoding.moviecatalogmade.R;
-import com.dicoding.moviecatalogmade.adapter.MovieAdapter;
-import com.dicoding.moviecatalogmade.database.MovieDAO;
-import com.dicoding.moviecatalogmade.database.MovieRoomDatabase;
 import com.dicoding.moviecatalogmade.model.Movie;
-import com.dicoding.moviecatalogmade.repository.MovieRepository;
-import com.dicoding.moviecatalogmade.viewmodel.MovieViewModel;
+import com.dicoding.moviecatalogmade.viewmodel.MovieFavoriteViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindString;
@@ -63,9 +56,8 @@ public class DetailMovieActivity extends AppCompatActivity {
     @BindView(R.id.fab_favorite)
     FloatingActionButton fabFavorite;
 
-    private MovieViewModel movieViewModel;
+    private MovieFavoriteViewModel viewModel;
     private boolean isFavorite;
-    private static final String TAG="Trace "+ DetailMovieActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,27 +69,34 @@ public class DetailMovieActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-        movieViewModel.getMoviesFav().observe(this, getMovie);
+        try{
+            Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+            String type = getIntent().getStringExtra(EXTRA_FROM);
+            if (movie != null && type != null){
+                setViewModel(movie, type);
+                showData(movie);
+            }
+        }catch (NullPointerException ne){
+            ne.printStackTrace();
+        }
+    }
 
-        final Movie data = getIntent().getParcelableExtra(EXTRA_MOVIE);
-        assert data != null;
-        isFavorite = movieViewModel.checkMovie(data.getTitle());
-        Log.d(TAG, "before: "+isFavorite);
+    private void setViewModel(final Movie data, String type){
+        viewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
+        viewModel.getMoviesFavorite().observe(this, getMovies);
+
+        isFavorite = viewModel.checkMovie(data.getTitle());
         setFabFavorite(isFavorite);
 
-        String tipe = getIntent().getStringExtra(EXTRA_FROM);
-        Log.d(TAG, "from: "+tipe);
-        if (tipe.equals("movie")){
+        if (type.equals("movie")){
             fabFavorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                  if (!isFavorite){
-                        movieViewModel.insert(data);
+                    if (!isFavorite){
+                        viewModel.insert(data);
                         Snackbar.make(v, R.string.add_favorite, Snackbar.LENGTH_SHORT).show();
                         setFabFavorite(true);
                         isFavorite = true;
-                        Log.d(TAG, "after: "+isFavorite);
                     }
 
                 }
@@ -116,11 +115,10 @@ public class DetailMovieActivity extends AppCompatActivity {
                         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                movieViewModel.delete(data);
+                                viewModel.delete(data);
                                 Snackbar.make(v, R.string.remove_favorite, Snackbar.LENGTH_SHORT).show();
                                 setFabFavorite(false);
                                 isFavorite = false;
-                                //Log.d(TAG, "after: "+isFavorite);
                             }
                         });
                         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -132,16 +130,17 @@ public class DetailMovieActivity extends AppCompatActivity {
                         builder.show();
 
                     } else {
-                        movieViewModel.insert(data);
+                        viewModel.insert(data);
                         Snackbar.make(v, R.string.add_favorite, Snackbar.LENGTH_SHORT).show();
                         setFabFavorite(true);
                         isFavorite = true;
-                        //Log.d(TAG, "after: "+isFavorite);
                     }
                 }
             });
         }
+    }
 
+    private void showData(final Movie data){
         final Handler handler = new Handler();
         new Thread(new Runnable() {
             public void run() {
@@ -149,42 +148,36 @@ public class DetailMovieActivity extends AppCompatActivity {
                     Thread.sleep(1000);
                 }
                 catch (Exception e) {
-                    Log.d("Thread", "run: "+e);
+                    e.printStackTrace();
                 }
 
                 handler.post(new Runnable() {
                     public void run() {
-                        if (data != null){
-                            String urlPoster = BuildConfig.API_POSTER_PATH + data.getPoster();
+                        String urlPoster = BuildConfig.API_POSTER_PATH + data.getPoster();
 
-                            Glide.with(DetailMovieActivity.this)
-                                    .load(urlPoster)
-                                    .apply(new RequestOptions().override(600, 900))
-                                    .into(imgPoster);
+                        Glide.with(DetailMovieActivity.this)
+                                .load(urlPoster)
+                                .apply(new RequestOptions().override(600, 900))
+                                .into(imgPoster);
 
-                            tvTitle.setText(data.getTitle());
-                            tvPopularity.setText(data.getPopularity());
-                            tvReleased.setText(data.getRelease_date());
-                            tvOverview.setText(data.getOverview());
-                            tvScore.setText(data.getScore());
-                            tvLanguage.setText(data.getLanguage());
+                        tvTitle.setText(data.getTitle());
+                        tvPopularity.setText(data.getPopularity());
+                        tvReleased.setText(data.getRelease_date());
+                        tvOverview.setText(data.getOverview());
+                        tvScore.setText(data.getScore());
+                        tvLanguage.setText(data.getLanguage());
 
-                            progressBar.setVisibility(View.INVISIBLE);
-                        }
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 });
             }
         }).start();
     }
 
-
-    private Observer<List<Movie>> getMovie = new Observer<List<Movie>>() {
+    private Observer<List<Movie>> getMovies = new Observer<List<Movie>>() {
         @Override
         public void onChanged(List<Movie> movies) {
-            if (movies != null) {
-                Log.d(TAG, "onChanged 2: ");
-                //movieAdapter.setData(movies);
-            }
+
         }
     };
 

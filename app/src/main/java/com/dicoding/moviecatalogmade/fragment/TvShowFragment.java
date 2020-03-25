@@ -31,7 +31,6 @@ public class TvShowFragment extends Fragment {
     private RecyclerView rvTvShow;
     private TvShowAdapter tvShowAdapter;
     private ProgressBar progressBar;
-    private TvShowViewModel tvShowViewModel;
 
     public TvShowFragment() {
         // Required empty public constructor
@@ -58,10 +57,10 @@ public class TvShowFragment extends Fragment {
         tvShowAdapter = new TvShowAdapter(getContext());
         rvTvShow.setAdapter(tvShowAdapter);
 
-        tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
+        TvShowViewModel viewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
         if(getActivity() != null){
-            tvShowViewModel.getTvShows().observe(getActivity(), getTvShow);
-            tvShowViewModel.setTvShows(getActivity());
+            viewModel.getTvShows().observe(getActivity(), getTvShow);
+            viewModel.setTvShows();
             showLoading(true);
         }
 

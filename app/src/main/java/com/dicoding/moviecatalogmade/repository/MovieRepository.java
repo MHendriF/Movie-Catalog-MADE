@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.dicoding.moviecatalogmade.database.MovieDAO;
 import com.dicoding.moviecatalogmade.database.MovieRoomDatabase;
@@ -16,34 +15,37 @@ import java.util.concurrent.ExecutionException;
 
 public class MovieRepository {
 
-    private MovieDAO mMovieDAO;
-    private LiveData<List<Movie>> mAllMovies;
+    private MovieDAO mDAO;
+    private LiveData<List<Movie>> mData;
     private static final String TAG="Trace "+MovieRepository.class.getSimpleName();
-    public boolean isFavorite =  false;
 
     public MovieRepository(Application application) {
         MovieRoomDatabase db = MovieRoomDatabase.getDatabase(application);
-        mMovieDAO = db.movieDAO();
-        mAllMovies = mMovieDAO.getAllMovies();
+        mDAO = db.movieDAO();
+        mData = mDAO.getAllMovies();
     }
 
-    public LiveData<List<Movie>> getAllMovies() {
-        return mAllMovies;
+    public LiveData<List<Movie>> getAllData() {
+        return mData;
     }
 
     public void insert (Movie movie) {
-        new insertMovieAsyncTask(mMovieDAO).execute(movie);
+        new insertDataAsyncTask(mDAO).execute(movie);
     }
     public void update (Movie movie) {
-        new updateMovieAsyncTask(mMovieDAO).execute(movie);
+        new updateDataAsyncTask(mDAO).execute(movie);
     }
     public void delete (Movie movie) {
-        new deleteMovieAsyncTask(mMovieDAO).execute(movie);
+        new deleteDataAsyncTask(mDAO).execute(movie);
     }
-
-    private static class insertMovieAsyncTask extends AsyncTask<Movie, Void, Void> {
+    public boolean checkData(String title) throws ExecutionException, InterruptedException {
+        checkDataAsyncTask task = new checkDataAsyncTask(mDAO);
+        task.execute(title);
+        return task.get();
+    }
+    private static class insertDataAsyncTask extends AsyncTask<Movie, Void, Void> {
         private MovieDAO mAsyncTaskDao;
-        insertMovieAsyncTask(MovieDAO dao) {
+        insertDataAsyncTask(MovieDAO dao) {
             mAsyncTaskDao = dao;
         }
 
@@ -54,9 +56,9 @@ public class MovieRepository {
         }
     }
 
-    private static class updateMovieAsyncTask extends AsyncTask<Movie, Void, Void>{
+    private static class updateDataAsyncTask extends AsyncTask<Movie, Void, Void>{
         private MovieDAO mAsyncTaskDao;
-        public updateMovieAsyncTask(MovieDAO dao) {
+        updateDataAsyncTask(MovieDAO dao) {
             mAsyncTaskDao = dao;
         }
 
@@ -67,9 +69,9 @@ public class MovieRepository {
         }
     }
 
-    private static class deleteMovieAsyncTask extends AsyncTask<Movie, Void, Void> {
+    private static class deleteDataAsyncTask extends AsyncTask<Movie, Void, Void> {
         private MovieDAO mAsyncTaskDao;
-        deleteMovieAsyncTask(MovieDAO dao) {
+        deleteDataAsyncTask(MovieDAO dao) {
             mAsyncTaskDao = dao;
         }
 
@@ -80,42 +82,17 @@ public class MovieRepository {
         }
     }
 
-    public boolean checkMovie(String title) throws ExecutionException, InterruptedException {
-        checkMovieAsyncTask task = new checkMovieAsyncTask(mMovieDAO);
-        task.delegate = this;
-        task.execute(title);
-        boolean test = task.get();
-        Log.d(TAG, "checkMovie: "+test);
-        return test;
-    }
-
-    private static class checkMovieAsyncTask extends AsyncTask<String, Void, Boolean> {
+    private static class checkDataAsyncTask extends AsyncTask<String, Void, Boolean> {
         private MovieDAO mAsyncTaskDao;
-        private MovieRepository delegate = null;
-
-        checkMovieAsyncTask(MovieDAO dao) {
+        checkDataAsyncTask(MovieDAO dao) {
             mAsyncTaskDao = dao;
         }
 
         @Override
         protected Boolean doInBackground(final String... params) {
             int result = mAsyncTaskDao.getMovieByTitle(params[0]);
-            if (result > 0){
-                //Log.d(TAG, "doInBackground: true");
-                return true;
-            }
-            else{
-                //Log.d(TAG, "doInBackground: false");
-                return false;
-            }
+            return result > 0;
         }
-
-//        @Override
-//        protected void onPostExecute(Boolean aBoolean) {
-//            delegate.setIsFavorite(aBoolean);
-//            Log.d(TAG, "onPostExecute: "+aBoolean);
-//        }
-
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {

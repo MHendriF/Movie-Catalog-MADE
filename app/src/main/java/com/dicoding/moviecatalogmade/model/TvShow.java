@@ -3,30 +3,56 @@ package com.dicoding.moviecatalogmade.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.json.JSONObject;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
+@Entity(tableName = "tv_show_table", indices = @Index(value = {"title"}, unique = true))
 public class TvShow implements Parcelable {
 
+    @PrimaryKey(autoGenerate = true)
+    private int uid;
+
+    @ColumnInfo(name = "title")
+    @SerializedName(value = "title", alternate = {"name"})
     private String title;
+
+    @ColumnInfo(name = "overview")
+    @SerializedName("overview")
     private String overview;
-    private Double score;
+
+    @ColumnInfo(name = "vote_average")
+    @SerializedName("vote_average")
+    private String score;
+
+    @ColumnInfo(name = "poster_path")
+    @SerializedName("poster_path")
     private String poster;
+
+    @ColumnInfo(name = "popularity")
+    @SerializedName("popularity")
     private String popularity;
+
+    @ColumnInfo(name = "release_date")
+    @SerializedName(value = "release_date", alternate = {"first_air_date"})
     private String release_date;
+
+    @ColumnInfo(name = "original_language")
+    @SerializedName("original_language")
     private String language;
+
     public TvShow(){}
 
-    public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {
-        @Override
-        public TvShow createFromParcel(Parcel in) {
-            return new TvShow(in);
-        }
+    public int getUid() {
+        return uid;
+    }
 
-        @Override
-        public TvShow[] newArray(int size) {
-            return new TvShow[size];
-        }
-    };
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
     public String getTitle() {
         return title;
@@ -40,25 +66,61 @@ public class TvShow implements Parcelable {
         return overview;
     }
 
-    public Double getScore() {
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getScore() {
         return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 
     public String getPoster() {
         return poster;
     }
 
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
     public String getPopularity() {
         return popularity;
+    }
+
+    public void setPopularity(String popularity) {
+        this.popularity = popularity;
     }
 
     public String getRelease_date() {
         return release_date;
     }
 
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+
     public String getLanguage() {
         return language;
     }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {
+        @Override
+        public TvShow createFromParcel(Parcel in) {
+            return new TvShow(in);
+        }
+
+        @Override
+        public TvShow[] newArray(int size) {
+            return new TvShow[size];
+        }
+    };
 
     @Override
     public int describeContents() {
@@ -67,46 +129,24 @@ public class TvShow implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(uid);
         dest.writeString(title);
         dest.writeString(release_date);
         dest.writeString(overview);
-        dest.writeValue(score);
+        dest.writeString(score);
         dest.writeString(poster);
         dest.writeString(popularity);
         dest.writeString(language);
     }
 
     private TvShow(Parcel in) {
+        uid = in.readInt();
         title = in.readString();
         release_date = in.readString();
         overview = in.readString();
-        score = (Double) in.readValue(Double.class.getClassLoader());
+        score = in.readString();
         poster = in.readString();
         popularity = in.readString();
         language = in.readString();
-    }
-
-    public TvShow(JSONObject object) {
-        try {
-            Double score = object.getDouble("vote_average");
-            String title = object.getString("name");
-            String language = object.getString("original_language");
-            String overview = object.getString("overview");
-            String release_date = object.getString("first_air_date");
-            String poster = object.getString("poster_path");
-            String popularity = object.getString("popularity");
-
-            this.title = title;
-            this.score = score;
-            this.release_date = release_date;
-            this.overview = overview;
-            this.release_date = release_date;
-            this.poster = poster;
-            this.language = language;
-            this.popularity = popularity;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
