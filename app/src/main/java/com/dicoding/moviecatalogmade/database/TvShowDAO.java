@@ -14,7 +14,7 @@ import java.util.List;
 
 @Dao
 public interface TvShowDAO {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TvShow... tvShows);
 
     @Query("SELECT * from tv_show_table ORDER BY title ASC")

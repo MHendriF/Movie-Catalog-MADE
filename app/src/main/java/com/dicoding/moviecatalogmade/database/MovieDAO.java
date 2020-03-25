@@ -14,7 +14,7 @@ import java.util.List;
 
 @Dao
 public interface MovieDAO {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Movie... movies);
 
     @Query("SELECT * from movie_table ORDER BY title ASC")

@@ -16,13 +16,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.dicoding.moviecatalogmade.R;
-import com.dicoding.moviecatalogmade.adapter.TvShowAdapter;
 import com.dicoding.moviecatalogmade.adapter.TvShowFavoriteAdapter;
 import com.dicoding.moviecatalogmade.model.TvShow;
 import com.dicoding.moviecatalogmade.viewmodel.TvShowFavoriteViewModel;
-import com.dicoding.moviecatalogmade.viewmodel.TvShowViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +34,6 @@ public class TvShowFavoriteFragment extends Fragment {
     public TvShowFavoriteFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

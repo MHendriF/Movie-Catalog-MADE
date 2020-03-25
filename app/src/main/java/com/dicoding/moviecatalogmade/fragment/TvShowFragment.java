@@ -22,14 +22,13 @@ import com.dicoding.moviecatalogmade.viewmodel.TvShowViewModel;
 
 import java.util.ArrayList;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TvShowFragment extends Fragment {
 
     private RecyclerView rvTvShow;
-    private TvShowAdapter tvShowAdapter;
+    private TvShowAdapter adapter;
     private ProgressBar progressBar;
 
     public TvShowFragment() {
@@ -54,23 +53,22 @@ public class TvShowFragment extends Fragment {
 
     private void showRecycleList() {
         rvTvShow.setLayoutManager(new LinearLayoutManager(getContext()));
-        tvShowAdapter = new TvShowAdapter(getContext());
-        rvTvShow.setAdapter(tvShowAdapter);
+        adapter = new TvShowAdapter(getContext());
+        rvTvShow.setAdapter(adapter);
 
         TvShowViewModel viewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
         if(getActivity() != null){
-            viewModel.getTvShows().observe(getActivity(), getTvShow);
+            viewModel.getTvShows().observe(getActivity(), getAllData);
             viewModel.setTvShows();
             showLoading(true);
         }
-
     }
 
-    private Observer<ArrayList<TvShow>> getTvShow = new Observer<ArrayList<TvShow>>() {
+    private Observer<ArrayList<TvShow>> getAllData = new Observer<ArrayList<TvShow>>() {
         @Override
         public void onChanged(ArrayList<TvShow> tvShows) {
             if (tvShows != null) {
-                tvShowAdapter.setData(tvShows);
+                adapter.setData(tvShows);
             }
             showLoading(false);
         }

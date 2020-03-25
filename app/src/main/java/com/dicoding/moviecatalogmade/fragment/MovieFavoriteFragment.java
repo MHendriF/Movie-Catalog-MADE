@@ -29,7 +29,7 @@ import java.util.List;
 public class MovieFavoriteFragment extends Fragment {
 
     private RecyclerView rvMovie;
-    private MovieFavoriteAdapter mAdapter;
+    private MovieFavoriteAdapter adapter;
     private ProgressBar progressBar;
 
     public MovieFavoriteFragment() {
@@ -55,21 +55,21 @@ public class MovieFavoriteFragment extends Fragment {
 
     private void showRecycleList() {
         rvMovie.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new MovieFavoriteAdapter(getActivity());
-        rvMovie.setAdapter(mAdapter);
+        adapter = new MovieFavoriteAdapter(getActivity());
+        rvMovie.setAdapter(adapter);
 
         MovieFavoriteViewModel viewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
         if(getActivity() != null){
-            viewModel.getMoviesFavorite().observe(getActivity(), getMovies);
+            viewModel.getMoviesFavorite().observe(getActivity(), getAllData);
             showLoading(true);
         }
     }
 
-    private Observer<List<Movie>> getMovies = new Observer<List<Movie>>() {
+    private Observer<List<Movie>> getAllData = new Observer<List<Movie>>() {
         @Override
         public void onChanged(List<Movie> movies) {
             if (movies != null) {
-                mAdapter.setData(movies);
+                adapter.setData(movies);
             }
             showLoading(false);
         }

@@ -21,8 +21,6 @@ import com.dicoding.moviecatalogmade.model.Movie;
 import com.dicoding.moviecatalogmade.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +28,7 @@ import java.util.List;
 public class MovieFragment extends Fragment {
 
     private RecyclerView rvMovie;
-    private MovieAdapter movieAdapter;
+    private MovieAdapter adapter;
     private ProgressBar progressBar;
 
     public MovieFragment() {
@@ -55,22 +53,22 @@ public class MovieFragment extends Fragment {
 
     private void showRecycleList() {
         rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
-        movieAdapter = new MovieAdapter(getContext());
-        rvMovie.setAdapter(movieAdapter);
+        adapter = new MovieAdapter(getContext());
+        rvMovie.setAdapter(adapter);
 
         MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         if(getActivity() != null){
-            movieViewModel.getMovies().observe(getActivity(), getMovie);
+            movieViewModel.getMovies().observe(getActivity(), getAllData);
             movieViewModel.setMovies();
             showLoading(true);
         }
     }
 
-    private Observer<ArrayList<Movie>> getMovie = new Observer<ArrayList<Movie>>() {
+    private Observer<ArrayList<Movie>> getAllData = new Observer<ArrayList<Movie>>() {
         @Override
         public void onChanged(ArrayList<Movie> movies) {
             if (movies != null) {
-                movieAdapter.setData(movies);
+                adapter.setData(movies);
             }
             showLoading(false);
         }
