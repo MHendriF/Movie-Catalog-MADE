@@ -2,12 +2,11 @@ package com.dicoding.moviecatalogmade.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import com.dicoding.moviecatalogmade.database.MovieDAO;
-import com.dicoding.moviecatalogmade.database.MovieRoomDatabase;
+import com.dicoding.moviecatalogmade.database.MoviesRoomDatabase;
 import com.dicoding.moviecatalogmade.model.Movie;
 
 import java.util.List;
@@ -17,10 +16,9 @@ public class MovieRepository {
 
     private MovieDAO mDAO;
     private LiveData<List<Movie>> mData;
-    private static final String TAG="Trace "+MovieRepository.class.getSimpleName();
 
     public MovieRepository(Application application) {
-        MovieRoomDatabase db = MovieRoomDatabase.getDatabase(application);
+        MoviesRoomDatabase db = MoviesRoomDatabase.getDatabase(application);
         mDAO = db.movieDAO();
         mData = mDAO.getAllMovies();
     }

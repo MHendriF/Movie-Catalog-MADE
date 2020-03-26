@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -51,7 +50,7 @@ public class DetailMovieActivity extends AppCompatActivity {
     TextView tvScore;
     @BindView(R.id.tv_movie_language)
     TextView tvLanguage;
-    @BindString(R.string.title_tv_show)
+    @BindString(R.string.title_movies)
     String customTitle;
     @BindView(R.id.fab_favorite)
     FloatingActionButton fabFavorite;
@@ -69,16 +68,32 @@ public class DetailMovieActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        try{
-            Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
-            String type = getIntent().getStringExtra(EXTRA_FROM);
-            if (movie != null && type != null){
-                setViewModel(movie, type);
-                showData(movie);
+        final Handler handler = new Handler();
+        new Thread(new Runnable() {
+            public void run() {
+                try{
+                    Thread.sleep(1000);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                handler.post(new Runnable() {
+                    public void run() {
+                        try{
+                            Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+                            String type = getIntent().getStringExtra(EXTRA_FROM);
+                            if (movie != null && type != null){
+                                setViewModel(movie, type);
+                                showData(movie);
+                            }
+                        }catch (NullPointerException ne){
+                            ne.printStackTrace();
+                        }
+                    }
+                });
             }
-        }catch (NullPointerException ne){
-            ne.printStackTrace();
-        }
+        }).start();
     }
 
     private void setViewModel(final Movie data, String type){
@@ -141,37 +156,18 @@ public class DetailMovieActivity extends AppCompatActivity {
     }
 
     private void showData(final Movie data){
-        final Handler handler = new Handler();
-        new Thread(new Runnable() {
-            public void run() {
-                try{
-                    Thread.sleep(1000);
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                handler.post(new Runnable() {
-                    public void run() {
-                        String urlPoster = BuildConfig.API_POSTER_PATH + data.getPoster();
-
-                        Glide.with(DetailMovieActivity.this)
-                                .load(urlPoster)
-                                .apply(new RequestOptions().override(600, 900))
-                                .into(imgPoster);
-
-                        tvTitle.setText(data.getTitle());
-                        tvPopularity.setText(data.getPopularity());
-                        tvReleased.setText(data.getRelease_date());
-                        tvOverview.setText(data.getOverview());
-                        tvScore.setText(data.getScore());
-                        tvLanguage.setText(data.getLanguage());
-
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
-                });
-            }
-        }).start();
+        String urlPoster = BuildConfig.API_POSTER_PATH + data.getPoster();
+        Glide.with(DetailMovieActivity.this)
+                .load(urlPoster)
+                .apply(new RequestOptions().override(600, 900))
+                .into(imgPoster);
+        tvTitle.setText(data.getTitle());
+        tvPopularity.setText(data.getPopularity());
+        tvReleased.setText(data.getRelease_date());
+        tvOverview.setText(data.getOverview());
+        tvScore.setText(data.getScore());
+        tvLanguage.setText(data.getLanguage());
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     private Observer<List<Movie>> getMovies = new Observer<List<Movie>>() {

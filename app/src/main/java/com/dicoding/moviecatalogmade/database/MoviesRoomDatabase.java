@@ -9,18 +9,20 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.dicoding.moviecatalogmade.model.Movie;
+import com.dicoding.moviecatalogmade.model.TvShow;
 
-@Database(entities = {Movie.class}, version = 1, exportSchema = false)
-public abstract class MovieRoomDatabase extends RoomDatabase {
+@Database(entities = {Movie.class, TvShow.class}, version = 1, exportSchema = false)
+public abstract class MoviesRoomDatabase extends RoomDatabase {
 
     public abstract MovieDAO movieDAO();
-    private static MovieRoomDatabase INSTANCE;
+    public abstract TvShowDAO tvShowDAO();
+    private static MoviesRoomDatabase INSTANCE;
 
-    public static MovieRoomDatabase getDatabase(final Context context){
+    public static MoviesRoomDatabase getDatabase(final Context context){
         if (INSTANCE == null){
-            synchronized (MovieRoomDatabase.class){
+            synchronized (MoviesRoomDatabase.class){
                 if (INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), MovieRoomDatabase.class, "movie_database")
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), MoviesRoomDatabase.class, "movies_database")
                             .fallbackToDestructiveMigration()
                             .addCallback(sRoomDatabaseCallback)
                             .build();

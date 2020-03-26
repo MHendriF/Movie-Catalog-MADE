@@ -68,16 +68,30 @@ public class DetailTvShowActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        try{
-            TvShow tvShow = getIntent().getParcelableExtra(EXTRA_TV_SHOW);
-            String type = getIntent().getStringExtra(EXTRA_FROM);
-            if (tvShow != null && type != null){
-                setViewModel(tvShow, type);
-                showData(tvShow);
+        final Handler handler = new Handler();
+        new Thread(new Runnable() {
+            public void run() {
+                try{
+                    Thread.sleep(1000);
+                }
+                catch (Exception e) { e.printStackTrace(); }
+
+                handler.post(new Runnable() {
+                    public void run() {
+                        try{
+                            TvShow tvShow = getIntent().getParcelableExtra(EXTRA_TV_SHOW);
+                            String type = getIntent().getStringExtra(EXTRA_FROM);
+                            if (tvShow != null && type != null){
+                                setViewModel(tvShow, type);
+                                showData(tvShow);
+                            }
+                        }catch (NullPointerException ne){
+                            ne.printStackTrace();
+                        }
+                    }
+                });
             }
-        }catch (NullPointerException ne){
-            ne.printStackTrace();
-        }
+        }).start();
     }
 
     private void setViewModel(final TvShow data, String type){
@@ -139,36 +153,18 @@ public class DetailTvShowActivity extends AppCompatActivity {
     }
 
     private void showData(final TvShow data){
-        final Handler handler = new Handler();
-        new Thread(new Runnable() {
-            public void run() {
-                try{
-                    Thread.sleep(1000);
-                }
-                catch (Exception e) { e.printStackTrace(); }
-
-                handler.post(new Runnable() {
-                    public void run() {
-                        String urlPoster = BuildConfig.API_POSTER_PATH + data.getPoster();
-
-                        Glide.with(DetailTvShowActivity.this)
-                                .load(urlPoster)
-                                .apply(new RequestOptions().override(600, 900))
-                                .into(imgPoster);
-
-                        tvTitle.setText(data.getTitle());
-                        tvPopularity.setText(data.getPopularity());
-                        tvReleased.setText(data.getRelease_date());
-                        tvOverview.setText(data.getOverview());
-                        tvScore.setText(data.getScore());
-                        tvLanguage.setText(data.getLanguage());
-                        progressBar.setVisibility(View.INVISIBLE);
-
-                        //Log.d("Trace DetailTvShow", "run: "+data.getTitle()+" - "+data.getPoster()+" - "+data.getScore()+" - "+data.getLanguage());
-                    }
-                });
-            }
-        }).start();
+        String urlPoster = BuildConfig.API_POSTER_PATH + data.getPoster();
+        Glide.with(DetailTvShowActivity.this)
+                .load(urlPoster)
+                .apply(new RequestOptions().override(600, 900))
+                .into(imgPoster);
+        tvTitle.setText(data.getTitle());
+        tvPopularity.setText(data.getPopularity());
+        tvReleased.setText(data.getRelease_date());
+        tvOverview.setText(data.getOverview());
+        tvScore.setText(data.getScore());
+        tvLanguage.setText(data.getLanguage());
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     private Observer<List<TvShow>> getAllData = new Observer<List<TvShow>>() {

@@ -5,8 +5,8 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.dicoding.moviecatalogmade.database.MoviesRoomDatabase;
 import com.dicoding.moviecatalogmade.database.TvShowDAO;
-import com.dicoding.moviecatalogmade.database.TvShowRoomDatabase;
 import com.dicoding.moviecatalogmade.model.TvShow;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class TvShowRepository {
     private LiveData<List<TvShow>> mData;
 
     public TvShowRepository(Application application) {
-        TvShowRoomDatabase db = TvShowRoomDatabase.getDatabase(application);
+        MoviesRoomDatabase db = MoviesRoomDatabase.getDatabase(application);
         mDAO = db.tvShowDAO();
         mData = mDAO.getAllTvShows();
     }
