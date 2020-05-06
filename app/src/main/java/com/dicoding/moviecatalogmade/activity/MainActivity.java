@@ -1,11 +1,12 @@
 package com.dicoding.moviecatalogmade.activity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -13,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.dicoding.moviecatalogmade.R;
+import com.dicoding.moviecatalogmade.fragment.FavoriteFragment;
+import com.dicoding.moviecatalogmade.fragment.MovieFragment;
+import com.dicoding.moviecatalogmade.fragment.TvShowFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -22,16 +26,51 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initBottomNavigation();
+        setActionBarTitle(R.string.title_movies);
+        if (savedInstanceState == null) {
+            loadFragment(new MovieFragment());
+        }
+    }
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_movie, R.id.navigation_tv_show, R.id.navigation_favorite)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+    private void initBottomNavigation(){
+        BottomNavigationView navView = findViewById(R.id.bottom_navigation);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment;
+                switch (item.getItemId()) {
+                    case R.id.navigation_movie:
+                        setActionBarTitle(R.string.title_movies);
+                        fragment = new MovieFragment();
+                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_tv_show:
+                        setActionBarTitle(R.string.title_tv_show);
+                        fragment = new TvShowFragment();
+                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_favorite:
+                        setActionBarTitle(R.string.title_favorite);
+                        fragment = new FavoriteFragment();
+                        loadFragment(fragment);
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.commit();
+    }
+
+    private void setActionBarTitle(int title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
     }
 
     @Override
@@ -47,5 +86,28 @@ public class MainActivity extends AppCompatActivity {
             startActivity(mIntent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("Do you want to exit?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
