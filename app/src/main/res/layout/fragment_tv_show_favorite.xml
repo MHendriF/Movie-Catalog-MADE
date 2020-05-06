@@ -6,12 +6,17 @@
     android:paddingBottom="56dp"
     tools:context=".fragment.TvShowFavoriteFragment">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_shimmer"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tv_show"

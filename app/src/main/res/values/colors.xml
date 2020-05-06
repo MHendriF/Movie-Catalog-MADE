@@ -3,8 +3,6 @@
     <color name="colorPrimary">#326E78</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#89B846</color>
-
-    <!--Material color list from https://material.io/guidelines/style/color.html-->
-
     <color name="white">#FFFFFF</color>
+    <color name="shimmer_bg">#dddddd</color>
 </resources>

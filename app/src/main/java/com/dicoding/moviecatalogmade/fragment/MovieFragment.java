@@ -19,6 +19,7 @@ import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.adapter.MovieAdapter;
 import com.dicoding.moviecatalogmade.model.Movie;
 import com.dicoding.moviecatalogmade.viewmodel.MovieViewModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class MovieFragment extends Fragment {
 
     private RecyclerView rvMovie;
     private MovieAdapter adapter;
-    private ProgressBar progressBar;
+    private ShimmerFrameLayout mShimmer;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -47,7 +48,7 @@ public class MovieFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvMovie = view.findViewById(R.id.rv_movie);
         rvMovie.setHasFixedSize(true);
-        progressBar = view.findViewById(R.id.progressBar);
+        mShimmer = view.findViewById(R.id.shimmer_view_container);
         showRecycleList();
     }
 
@@ -76,9 +77,10 @@ public class MovieFragment extends Fragment {
 
     private void showLoading(Boolean state) {
         if (state) {
-            progressBar.setVisibility(View.VISIBLE);
+            mShimmer.startShimmer();
         } else {
-            progressBar.setVisibility(View.GONE);
+            mShimmer.stopShimmer();
+            mShimmer.setVisibility(View.GONE);
         }
     }
 }

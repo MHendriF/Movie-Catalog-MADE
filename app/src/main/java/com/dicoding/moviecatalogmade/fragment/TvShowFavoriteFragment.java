@@ -19,6 +19,7 @@ import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.adapter.TvShowFavoriteAdapter;
 import com.dicoding.moviecatalogmade.model.TvShow;
 import com.dicoding.moviecatalogmade.viewmodel.TvShowFavoriteViewModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class TvShowFavoriteFragment extends Fragment {
 
     private RecyclerView rvTvShow;
     private TvShowFavoriteAdapter adapter;
-    private ProgressBar progressBar;
+    private ShimmerFrameLayout mShimmer;
 
     public TvShowFavoriteFragment() {
         // Required empty public constructor
@@ -47,7 +48,7 @@ public class TvShowFavoriteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvTvShow = view.findViewById(R.id.rv_tv_show);
         rvTvShow.setHasFixedSize(true);
-        progressBar = view.findViewById(R.id.progressBar);
+        mShimmer = view.findViewById(R.id.shimmer_view_container);
         showRecycleList();
     }
 
@@ -76,9 +77,10 @@ public class TvShowFavoriteFragment extends Fragment {
 
     private void showLoading(Boolean state) {
         if (state) {
-            progressBar.setVisibility(View.VISIBLE);
+            mShimmer.startShimmer();
         } else {
-            progressBar.setVisibility(View.GONE);
+            mShimmer.stopShimmer();
+            mShimmer.setVisibility(View.GONE);
         }
     }
 }

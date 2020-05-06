@@ -20,6 +20,7 @@ import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.adapter.MovieFavoriteAdapter;
 import com.dicoding.moviecatalogmade.model.Movie;
 import com.dicoding.moviecatalogmade.viewmodel.MovieFavoriteViewModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class MovieFavoriteFragment extends Fragment {
 
     private RecyclerView rvMovie;
     private MovieFavoriteAdapter adapter;
-    private ProgressBar progressBar;
+    private ShimmerFrameLayout mShimmer;
 
     public MovieFavoriteFragment() {
         // Required empty public constructor
@@ -49,7 +50,7 @@ public class MovieFavoriteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvMovie = view.findViewById(R.id.rv_movie);
         rvMovie.setHasFixedSize(true);
-        progressBar = view.findViewById(R.id.progressBar);
+        mShimmer = view.findViewById(R.id.shimmer_view_container);
         showRecycleList();
     }
 
@@ -77,9 +78,10 @@ public class MovieFavoriteFragment extends Fragment {
 
     private void showLoading(Boolean state) {
         if (state) {
-            progressBar.setVisibility(View.VISIBLE);
+            mShimmer.startShimmer();
         } else {
-            progressBar.setVisibility(View.GONE);
+            mShimmer.stopShimmer();
+            mShimmer.setVisibility(View.GONE);
         }
     }
 }
