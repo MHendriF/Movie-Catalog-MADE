@@ -24,4 +24,5 @@
     <string name="no">Tidak</string>
     <string name="add_favorite">Berhasil menambahkan ke daftar favorit</string>
     <string name="remove_favorite">Berhasil menghapus dari daftar favorit</string>
+    <string name="splashscreen_name">MOVIE CATALOG</string>
 </resources>
