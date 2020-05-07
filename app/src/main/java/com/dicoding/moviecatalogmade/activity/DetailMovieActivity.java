@@ -2,7 +2,7 @@ package com.dicoding.moviecatalogmade.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -97,7 +97,7 @@ public class DetailMovieActivity extends AppCompatActivity {
     }
 
     private void setViewModel(final Movie data, String type){
-        viewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MovieFavoriteViewModel.class);
         viewModel.getMoviesFavorite().observe(this, getMovies);
 
         isFavorite = viewModel.checkMovie(data.getTitle());

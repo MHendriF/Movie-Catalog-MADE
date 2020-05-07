@@ -2,13 +2,12 @@ package com.dicoding.moviecatalogmade.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -95,7 +94,7 @@ public class DetailTvShowActivity extends AppCompatActivity {
     }
 
     private void setViewModel(final TvShow data, String type){
-        viewModel = ViewModelProviders.of(this).get(TvShowFavoriteViewModel.class);
+        viewModel = new ViewModelProvider(this).get(TvShowFavoriteViewModel.class);
         viewModel.getAllData().observe(this, getAllData);
 
         isFavorite = viewModel.checkData(data.getTitle());
