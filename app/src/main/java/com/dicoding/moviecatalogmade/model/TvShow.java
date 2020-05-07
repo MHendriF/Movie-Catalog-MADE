@@ -1,8 +1,5 @@
 package com.dicoding.moviecatalogmade.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
@@ -10,8 +7,10 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @Entity(tableName = "tv_show_table", indices = @Index(value = {"title"}, unique = true))
-public class TvShow implements Parcelable {
+public class TvShow implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int uid;
@@ -108,45 +107,5 @@ public class TvShow implements Parcelable {
 
     public void setLanguage(String language) {
         this.language = language;
-    }
-
-    public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {
-        @Override
-        public TvShow createFromParcel(Parcel in) {
-            return new TvShow(in);
-        }
-
-        @Override
-        public TvShow[] newArray(int size) {
-            return new TvShow[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(uid);
-        dest.writeString(title);
-        dest.writeString(release_date);
-        dest.writeString(overview);
-        dest.writeString(score);
-        dest.writeString(poster);
-        dest.writeString(popularity);
-        dest.writeString(language);
-    }
-
-    private TvShow(Parcel in) {
-        uid = in.readInt();
-        title = in.readString();
-        release_date = in.readString();
-        overview = in.readString();
-        score = in.readString();
-        poster = in.readString();
-        popularity = in.readString();
-        language = in.readString();
     }
 }

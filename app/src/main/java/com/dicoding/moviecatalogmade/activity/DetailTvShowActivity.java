@@ -78,8 +78,10 @@ public class DetailTvShowActivity extends AppCompatActivity {
                 handler.post(new Runnable() {
                     public void run() {
                         try{
-                            TvShow tvShow = getIntent().getParcelableExtra(EXTRA_TV_SHOW);
-                            String type = getIntent().getStringExtra(EXTRA_FROM);
+                            Bundle bundle = getIntent().getExtras();
+                            TvShow tvShow = (TvShow) bundle.getSerializable(EXTRA_TV_SHOW);
+                            String type = bundle.getString(EXTRA_FROM);
+
                             if (tvShow != null && type != null){
                                 setViewModel(tvShow, type);
                                 showData(tvShow);

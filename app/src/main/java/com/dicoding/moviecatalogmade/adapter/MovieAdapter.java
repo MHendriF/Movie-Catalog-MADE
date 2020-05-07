@@ -2,6 +2,7 @@ package com.dicoding.moviecatalogmade.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.dicoding.moviecatalogmade.activity.DetailMovieActivity;
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.model.Movie;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,8 +90,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewView
             Movie movie = getMovies().get(position);
 
             Intent intent = new Intent(context, DetailMovieActivity.class);
-            intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movie);
-            intent.putExtra(DetailMovieActivity.EXTRA_FROM, "movie");
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(DetailMovieActivity.EXTRA_MOVIE, movie);
+            bundle.putString(DetailMovieActivity.EXTRA_FROM, "movie");
+            intent.putExtras(bundle);
             context.startActivity(intent);
         }
     }

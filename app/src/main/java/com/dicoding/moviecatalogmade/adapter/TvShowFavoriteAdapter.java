@@ -2,6 +2,7 @@ package com.dicoding.moviecatalogmade.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,11 +87,13 @@ public class TvShowFavoriteAdapter extends RecyclerView.Adapter<TvShowFavoriteAd
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            TvShow data = getTvShows().get(position);
+            TvShow tvShow = getTvShows().get(position);
 
             Intent intent = new Intent(context, DetailTvShowActivity.class);
-            intent.putExtra(DetailTvShowActivity.EXTRA_TV_SHOW, data);
-            intent.putExtra(DetailTvShowActivity.EXTRA_FROM, "tv_show_favorite");
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(DetailTvShowActivity.EXTRA_TV_SHOW, tvShow);
+            bundle.putString(DetailTvShowActivity.EXTRA_FROM, "tv_show_favorite");
+            intent.putExtras(bundle);
             context.startActivity(intent);
         }
     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -81,8 +82,10 @@ public class DetailMovieActivity extends AppCompatActivity {
                 handler.post(new Runnable() {
                     public void run() {
                         try{
-                            Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
-                            String type = getIntent().getStringExtra(EXTRA_FROM);
+                            Bundle bundle = getIntent().getExtras();
+                            Movie movie = (Movie) bundle.getSerializable(EXTRA_MOVIE);
+                            String type = bundle.getString(EXTRA_FROM);
+
                             if (movie != null && type != null){
                                 setViewModel(movie, type);
                                 showData(movie);
