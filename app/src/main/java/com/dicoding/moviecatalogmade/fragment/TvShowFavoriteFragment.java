@@ -6,14 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.adapter.TvShowFavoriteAdapter;
@@ -57,7 +56,7 @@ public class TvShowFavoriteFragment extends Fragment {
         adapter = new TvShowFavoriteAdapter(getContext());
         rvTvShow.setAdapter(adapter);
 
-        TvShowFavoriteViewModel viewModel = ViewModelProviders.of(this).get(TvShowFavoriteViewModel.class);
+        TvShowFavoriteViewModel viewModel = new ViewModelProvider(this).get(TvShowFavoriteViewModel.class);
         if(getActivity() != null){
             viewModel.getAllData().observe(getActivity(), getAllData);
             showLoading(true);

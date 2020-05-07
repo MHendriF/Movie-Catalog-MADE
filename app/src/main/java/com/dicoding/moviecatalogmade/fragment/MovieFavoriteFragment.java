@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,7 +60,7 @@ public class MovieFavoriteFragment extends Fragment {
         adapter = new MovieFavoriteAdapter(getActivity());
         rvMovie.setAdapter(adapter);
 
-        MovieFavoriteViewModel viewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
+        MovieFavoriteViewModel viewModel = new ViewModelProvider(this).get(MovieFavoriteViewModel.class);
         if(getActivity() != null){
             viewModel.getMoviesFavorite().observe(getActivity(), getAllData);
             showLoading(true);

@@ -6,14 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.adapter.TvShowAdapter;
@@ -57,7 +56,7 @@ public class TvShowFragment extends Fragment {
         adapter = new TvShowAdapter(getContext());
         rvTvShow.setAdapter(adapter);
 
-        TvShowViewModel viewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
+        TvShowViewModel viewModel = new ViewModelProvider(this).get(TvShowViewModel.class);
         if(getActivity() != null){
             viewModel.getTvShows().observe(getActivity(), getAllData);
             viewModel.setTvShows();

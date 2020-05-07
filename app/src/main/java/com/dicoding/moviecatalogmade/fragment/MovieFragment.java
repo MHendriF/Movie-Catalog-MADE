@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,7 +58,7 @@ public class MovieFragment extends Fragment {
         adapter = new MovieAdapter(getContext());
         rvMovie.setAdapter(adapter);
 
-        MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        MovieViewModel movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
         if(getActivity() != null){
             movieViewModel.getMovies().observe(getActivity(), getAllData);
             movieViewModel.setMovies();
