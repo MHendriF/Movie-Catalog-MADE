@@ -5,8 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +15,7 @@ import android.view.ViewGroup;
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.adapter.MovieAdapter;
 import com.dicoding.moviecatalogmade.model.Movie;
-import com.dicoding.moviecatalogmade.viewmodel.MovieViewModel;
+import com.dicoding.moviecatalogmade.presenter.MoviePresenter;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MovieFragment extends Fragment {
+public class MovieFragment extends Fragment implements MoviePresenter.View {
 
     private RecyclerView rvMovie;
     private MovieAdapter adapter;
@@ -48,6 +46,9 @@ public class MovieFragment extends Fragment {
         rvMovie = view.findViewById(R.id.rv_movie);
         rvMovie.setHasFixedSize(true);
         mShimmer = view.findViewById(R.id.shimmer_view_container);
+
+        MoviePresenter moviePresenter = new MoviePresenter(this);
+        moviePresenter.getMovies();
         showRecycleList();
     }
 
@@ -55,26 +56,16 @@ public class MovieFragment extends Fragment {
         rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MovieAdapter(getContext());
         rvMovie.setAdapter(adapter);
-
-        MovieViewModel movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-        if(getActivity() != null){
-            movieViewModel.getMovies().observe(getActivity(), getAllData);
-            movieViewModel.setMovies();
-            showLoading(true);
-        }
     }
 
-    private Observer<ArrayList<Movie>> getAllData = new Observer<ArrayList<Movie>>() {
-        @Override
-        public void onChanged(ArrayList<Movie> movies) {
-            if (movies != null) {
-                adapter.setData(movies);
-            }
-            showLoading(false);
-        }
-    };
+    @Override
+    public void loadData(ArrayList<Movie> movies) {
+        showLoading(false);
+        adapter.setData(movies);
+    }
 
-    private void showLoading(Boolean state) {
+    @Override
+    public void showLoading(Boolean state) {
         if (state) {
             mShimmer.startShimmer();
         } else {

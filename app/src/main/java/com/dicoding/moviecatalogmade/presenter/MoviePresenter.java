@@ -1,17 +1,13 @@
-package com.dicoding.moviecatalogmade.viewmodel;
+package com.dicoding.moviecatalogmade.presenter;
 
-import android.content.Context;
 import android.util.Log;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.dicoding.moviecatalogmade.activity.MainActivity;
 import com.dicoding.moviecatalogmade.model.Movie;
 import com.dicoding.moviecatalogmade.model.networking.MovieResponse;
 import com.dicoding.moviecatalogmade.networking.ApiClient;
 import com.dicoding.moviecatalogmade.networking.ApiInterface;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -20,11 +16,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
-public class MovieViewModel extends ViewModel {
+public class MoviePresenter {
+    private View view;
 
-    private MutableLiveData<ArrayList<Movie>> movieList = new MutableLiveData<>();
+    public MoviePresenter(View view) {
+        this.view = view;
+    }
 
-    public void setMovies() {
+    public void getMovies() {
+        view.showLoading(true);
+
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<MovieResponse> call = apiService.getMovies("movie");
 
@@ -33,9 +34,10 @@ public class MovieViewModel extends ViewModel {
             @Override
             public void onResponse(@EverythingIsNonNull Call<MovieResponse> call, @EverythingIsNonNull Response<MovieResponse> response) {
                 try {
-                    assert response.body() != null;
-                    ArrayList<Movie> movies = response.body().getResults();
-                    movieList.postValue(movies);
+                    if (response.body() != null){
+                        ArrayList<Movie> movies = response.body().getResults();
+                        view.loadData(movies);
+                    }
                 } catch (Exception e) {
                     Log.e(MainActivity.class.getSimpleName(), Objects.requireNonNull(e.getLocalizedMessage()));
                 }
@@ -49,7 +51,8 @@ public class MovieViewModel extends ViewModel {
         });
     }
 
-    public LiveData<ArrayList<Movie>> getMovies() {
-        return movieList;
+    public interface View{
+        void loadData(ArrayList<Movie> movies);
+        void showLoading(Boolean state);
     }
 }

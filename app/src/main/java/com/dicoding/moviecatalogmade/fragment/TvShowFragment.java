@@ -5,8 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +15,7 @@ import android.view.ViewGroup;
 import com.dicoding.moviecatalogmade.R;
 import com.dicoding.moviecatalogmade.adapter.TvShowAdapter;
 import com.dicoding.moviecatalogmade.model.TvShow;
-import com.dicoding.moviecatalogmade.viewmodel.TvShowViewModel;
+import com.dicoding.moviecatalogmade.presenter.TvShowPresenter;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TvShowFragment extends Fragment {
+public class TvShowFragment extends Fragment implements TvShowPresenter.View {
 
     private RecyclerView rvTvShow;
     private TvShowAdapter adapter;
@@ -48,6 +46,9 @@ public class TvShowFragment extends Fragment {
         rvTvShow = view.findViewById(R.id.rv_tv_show);
         rvTvShow.setHasFixedSize(true);
         mShimmer = view.findViewById(R.id.shimmer_view_container);
+
+        TvShowPresenter tvShowPresenter = new TvShowPresenter(this);
+        tvShowPresenter.getTvShows();
         showRecycleList();
     }
 
@@ -55,26 +56,16 @@ public class TvShowFragment extends Fragment {
         rvTvShow.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TvShowAdapter(getContext());
         rvTvShow.setAdapter(adapter);
-
-        TvShowViewModel viewModel = new ViewModelProvider(this).get(TvShowViewModel.class);
-        if(getActivity() != null){
-            viewModel.getTvShows().observe(getActivity(), getAllData);
-            viewModel.setTvShows();
-            showLoading(true);
-        }
     }
 
-    private Observer<ArrayList<TvShow>> getAllData = new Observer<ArrayList<TvShow>>() {
-        @Override
-        public void onChanged(ArrayList<TvShow> tvShows) {
-            if (tvShows != null) {
-                adapter.setData(tvShows);
-            }
-            showLoading(false);
-        }
-    };
+    @Override
+    public void loadData(ArrayList<TvShow> tvShows) {
+        showLoading(false);
+        adapter.setData(tvShows);
+    }
 
-    private void showLoading(Boolean state) {
+    @Override
+    public void showLoading(Boolean state) {
         if (state) {
             mShimmer.startShimmer();
         } else {

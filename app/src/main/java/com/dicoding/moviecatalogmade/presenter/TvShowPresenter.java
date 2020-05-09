@@ -1,11 +1,6 @@
-package com.dicoding.moviecatalogmade.viewmodel;
+package com.dicoding.moviecatalogmade.presenter;
 
-import android.content.Context;
 import android.util.Log;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.dicoding.moviecatalogmade.activity.MainActivity;
 import com.dicoding.moviecatalogmade.model.TvShow;
@@ -21,11 +16,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
-public class TvShowViewModel extends ViewModel {
+public class TvShowPresenter {
+    private View view;
 
-    private MutableLiveData<ArrayList<TvShow>> listTvShows = new MutableLiveData<>();
+    public TvShowPresenter(View view) {
+        this.view = view;
+    }
 
-    public void setTvShows() {
+    public void getTvShows() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<TvShowResponse> call = apiService.getTvShows("tv");
 
@@ -34,9 +32,11 @@ public class TvShowViewModel extends ViewModel {
             @Override
             public void onResponse(@EverythingIsNonNull Call<TvShowResponse> call, @EverythingIsNonNull Response<TvShowResponse> response) {
                 try {
-                    assert response.body() != null;
-                    ArrayList<TvShow> tvShows = response.body().getResults();
-                    listTvShows.postValue(tvShows);
+                    if (response.body() != null){
+                        ArrayList<TvShow> tvShows = response.body().getResults();
+                        view.loadData(tvShows);
+                    }
+
                 } catch (Exception e) {
                     Log.e(MainActivity.class.getSimpleName(), Objects.requireNonNull(e.getLocalizedMessage()));
                 }
@@ -50,7 +50,8 @@ public class TvShowViewModel extends ViewModel {
         });
     }
 
-    public LiveData<ArrayList<TvShow>> getTvShows() {
-        return listTvShows;
+    public interface View{
+        void loadData(ArrayList<TvShow> tvShows);
+        void showLoading(Boolean state);
     }
 }
