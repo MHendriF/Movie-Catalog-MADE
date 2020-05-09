@@ -38,25 +38,23 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment;
+                Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.navigation_movie:
                         setActionBarTitle(R.string.title_movies);
                         fragment = new MovieFragment();
-                        loadFragment(fragment);
-                        return true;
+                        break;
                     case R.id.navigation_tv_show:
                         setActionBarTitle(R.string.title_tv_show);
                         fragment = new TvShowFragment();
-                        loadFragment(fragment);
-                        return true;
+                        break;
                     case R.id.navigation_favorite:
                         setActionBarTitle(R.string.title_favorite);
                         fragment = new FavoriteFragment();
-                        loadFragment(fragment);
-                        return true;
+                        break;
                 }
-                return false;
+                loadFragment(fragment);
+                return true;
             }
         });
     }
